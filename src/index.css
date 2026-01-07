@@ -1,0 +1,27 @@
+.app-wrapper {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #eef6f5;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Desktop background */
+body {
+  background: #dfeeed;
+}
+
+
+/* Desktop mobile-frame wrapper */
+.app-shell {
+  max-width: 420px;          /* phone width */
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #eef6f5;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Desktop background */
+body {
+  background: #dfeeed;
+}

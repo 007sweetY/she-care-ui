@@ -1,0 +1,144 @@
+@font-face {
+  font-family: 'More-Sugar'; /* Choose a name for your font */
+  src: local('MoreSugar-Extras'), 
+       url('./fonts/more_sugar/MoreSugar-Extras.ttf') format('truetype'); /* Use a relative path */
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+.container {
+  min-height: 100vh;
+  background: #eef6f5;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Leaves */
+
+.leafTopRight {
+  position: absolute;
+  top: 30px;
+  left: 59px;
+  width: 60px;
+}
+.leafCard {
+  position: absolute;
+  margin-top: 140px;
+  top:  170px;
+  right: 10px;
+  width: 120px;
+}
+
+.header .welcome {
+    font-size: 32px;
+    font-family: 'More-Sugar';
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 14px; 
+}
+
+
+/* Header */
+.header {
+  padding-top: 10px;
+  text-align: center;
+}
+
+
+
+.header p {
+  font-size: 24px;
+  font-weight: bold;
+   margin-bottom: 0px; 
+}
+
+.header h1 {
+  font-size: 45px;
+  color: #ff914d;
+  font-weight: 1000;
+  font-style: italic;
+  font-family: 'More-Sugar';
+  margin-top: -1px; 
+}
+
+/* Girl illustration — boundary element */
+.girlWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  z-index: 2;
+}
+
+.girlWrapper img {
+  width: 180px;
+  background: none;     /* removed */
+  border-radius: 0;     /* removed */
+  padding: 0;           /* removed */
+}
+
+
+/* Brown section (connected, NOT floating) */
+.card {
+  margin-top: -40px; /* THIS removes the white gap */
+  background: #c35d2d;
+  padding: 70px 24px 30px;
+  border-radius: 32px 32px 0 0;
+  color: #fff;
+}
+
+.card h2 {
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+label {
+  font-size: 13px;
+  margin-top: 12px;
+  display: block;
+}
+
+input {
+  width: 92%;              /* narrower */
+  padding: 14px 16px;
+  margin-top: 6px;
+  border-radius: 22px;
+  border: none;
+  outline: none;
+  background: #f4c4a6;
+  font-size: 14px;
+}
+
+.card label,
+.card input {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+
+/* Button */
+button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 26px;
+  background: #b35326;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  margin-top: 18px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.footer span {
+  font-weight: 600;
+  cursor: pointer;
+}
