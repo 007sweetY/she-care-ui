@@ -5,7 +5,7 @@
   min-height: 100vh;
   background-color: #eef4f2;
   text-align: center;
-  padding-top: 20px;
+  padding: 14px 16px 32px;
   font-family: "Poppins", sans-serif;
 }
 
@@ -15,7 +15,7 @@
 .verifyText {
   font-size: 23px;
   color: #444;
-  margin-bottom: 34px;
+  margin-bottom: 8px;
   font-weight: bold;
   font-family: 'More-Sugar';
 }
@@ -24,7 +24,7 @@
   font-size: 39px;
   font-weight: bold;
   color: #ff8a50;
-  margin-bottom: 108px;
+  margin-bottom: 89px;
   font-family: 'More-Sugar';
 }
 
@@ -33,19 +33,17 @@
   background-color: #c4632f;
   color: #fff;
   border-radius: 28px 28px 0 0;
-  padding: 110px 22px 28px; /* more space for girl */
-  min-height: 68vh;
+  padding: 72px 20px 28px;
   width: 90%;
-  margin: 0 auto;
-  /* overflow: hidden; clean cut like reference */
+  margin: -12px auto 0;
 }
 
 .girl {
   position: absolute;
-  top: -112px;                 /* controls how much she hangs  this is a test*/
+  top: -76px;
   left: 50%;
   transform: translateX(-50%);
-  width: 180px;               /* resize freely */
+  width: 180px;
   z-index: 3;
   pointer-events: none;
 }
@@ -77,30 +75,30 @@
 
 
 .otpCard h2 {
-  font-size: 40px;
+  font-size: 34px;
   text-align: left;
-  margin-bottom: 6px;
-  line-height: 1.1;
+  margin-bottom: 10px;
+  line-height: 1.2;
 }
 
 .subtitle {
-  font-size: 22px;
+  font-size: 16px;
   text-align: left;
   opacity: 0.9;
-  margin-bottom: 22px;
+  margin-bottom: 16px;
 }
 
 .otpInputs {
   display: flex;
-  justify-content: space-between;
-  max-width: 360px;
+  justify-content: center;
+  max-width: 240px;
   margin: 0 auto 16px;
-  gap: 6px;
+  gap: 10px;
 }
 
 .otpInputs input {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 14px;
   border: none;
   background-color: #f5c6a8;
@@ -114,20 +112,21 @@
   border: none;
   color: #ffe5d6;
   font-size: 17px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   cursor: pointer;
 }
 
 .verifyBtn {
-  width: 25%;
-  height: 49px;
-  border-radius: 17px;
+  width: 100%;
+  height: 52px;
+  border-radius: 20px;
   border: 2.2px solid #fff;
   background: transparent;
   color: #fff;
   font-size: 19px;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 8px;
 }
 
 
