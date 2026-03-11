@@ -42,7 +42,7 @@
 
 .girl {
   position: absolute;
-  top: -112px;                 /* controls how much she hangs */
+  top: -112px;                 /* controls how much she hangs  this is a test*/
   left: 50%;
   transform: translateX(-50%);
   width: 180px;               /* resize freely */
