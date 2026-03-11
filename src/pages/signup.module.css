@@ -117,6 +117,14 @@ input {
   display: block;
 }
 
+.error {
+  font-size: 12px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  text-align: center;
+  color: #ffe9d7;
+}
+
 
 /* Button */
 button {
