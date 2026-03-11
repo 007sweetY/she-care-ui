@@ -1,0 +1,172 @@
+/* =========================
+   Page Container
+========================= */
+.otpContainer {
+  min-height: 100vh;
+  background-color: #eef4f2;
+  text-align: center;
+  padding-top: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* =========================
+   Top Text
+========================= */
+.verifyText {
+  font-size: 23px;
+  color: #444;
+  margin-bottom: 34px;
+  font-weight: bold;
+  font-family: 'More-Sugar';
+}
+
+.brand {
+  font-size: 39px;
+  font-weight: bold;
+  color: #ff8a50;
+  margin-bottom: 108px;
+  font-family: 'More-Sugar';
+}
+
+.otpCard {
+  position: relative; /* REQUIRED for girl positioning */
+  background-color: #c4632f;
+  color: #fff;
+  border-radius: 28px 28px 0 0;
+  padding: 110px 22px 28px; /* more space for girl */
+  min-height: 68vh;
+  width: 90%;
+  margin: 0 auto;
+  /* overflow: hidden; clean cut like reference */
+}
+
+.girl {
+  position: absolute;
+  top: -112px;                 /* controls how much she hangs */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;               /* resize freely */
+  z-index: 3;
+  pointer-events: none;
+}
+
+
+.leafLeft {
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  width: 34px;
+  opacity: 0.9;
+}
+
+.leafRight {
+  position: absolute;
+  top: -22px;
+  right: 26px;
+  width: 42px;
+  opacity: 0.9;
+}
+
+.leafInside {
+  position: absolute;
+  top: 95px;
+  right: 30px;
+  width: 32px;
+  opacity: 0.7;
+}
+
+
+.otpCard h2 {
+  font-size: 40px;
+  text-align: left;
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 22px;
+  text-align: left;
+  opacity: 0.9;
+  margin-bottom: 22px;
+}
+
+.otpInputs {
+  display: flex;
+  justify-content: space-between;
+  max-width: 360px;
+  margin: 0 auto 16px;
+  gap: 6px;
+}
+
+.otpInputs input {
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  border: none;
+  background-color: #f5c6a8;
+  text-align: center;
+  font-size: 18px;
+  outline: none;
+}
+
+.resend {
+  background: none;
+  border: none;
+  color: #ffe5d6;
+  font-size: 17px;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+
+.verifyBtn {
+  width: 25%;
+  height: 49px;
+  border-radius: 17px;
+  border: 2.2px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-size: 19px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* Top-left leaf */
+.leafMidLeft {
+  top: 100px;
+  right: 206px; 
+  width: 80px;
+  position: relative;
+}
+
+/* Top-right leaf */
+.leafTopRight {
+
+  top: 20px;
+  position: relative;
+  width: 80px;
+  left: 215px;
+}
+
+/* Leaf touching card */
+.leafOnCard {
+  position: absolute;
+  top: 86px;
+  right: 28px;
+  width: 1132px;
+  opacity: 0.7;
+  transform: rotate(10deg);
+}
+
+.leafbelow {
+  position: relative;
+  left: 154px;
+  width: 84px;
+  align-items: end;
+  top: -100px;
+}
+
+
+.verifyBtn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
