@@ -15,7 +15,7 @@ body {
 /* Desktop mobile-frame wrapper */
 .app-shell {
   max-width: 420px;          /* phone width */
-  min-height: 100vh;
+  /* min-height: 100vh; */
   margin: 0 auto;
   background: #eef6f5;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);

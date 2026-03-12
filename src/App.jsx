@@ -3,6 +3,7 @@ import Signup from "./pages/signup";
 import Login from "./pages/login";
 import CreatePassword from "./pages/createPassword";
 import VerifyOtp from "./pages/verifyOtp";
+import ProfileSetup from "./pages/profileSetup";
 import "./index.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route path="/createPassword" element={<CreatePassword/>} />
+          <Route path="/profile-setup" element={<ProfileSetup />} />
         </Routes>
       </BrowserRouter>
     </div>
