@@ -1,10 +1,14 @@
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./signup.module.css";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
-
+import styles from "./signup.module.css";
+  
 const Signup = () => {
-  const navigate = useNavigate(); // ✅ hook placed correctly
+  const navigate = useNavigate(); // âœ… hook placed correctly
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const passwordsMismatch = confirmPassword && password !== confirmPassword;
 
   return (
     <div className={styles.container}>
@@ -38,7 +42,23 @@ const Signup = () => {
         <input type="email" placeholder="hello@reallygreatsite.com" />
 
         <label>Password</label>
-        <input type="password" placeholder="******" />
+        <input
+          type="password"
+          placeholder="******"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          placeholder="******"
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+        />
+        {passwordsMismatch && (
+          <p className={styles.error}>Passwords do not match.</p>
+        )}
 
         <button>Continue</button>
 
