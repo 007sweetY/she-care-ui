@@ -33,6 +33,8 @@ const Signup = () => {
         {/* Leaf beside "Sign Up" */}
         <img src={leafImg} className={styles.leafCard} alt="leaf" />
 
+        {/* this is a test for sure */}
+
         <h2>Sign Up</h2>
 
         <label>Name</label>
