@@ -3,16 +3,47 @@ import { useNavigate } from "react-router-dom";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
 import styles from "./signup.module.css";
-  
+import signupService from "../services/signupService";
+
 const Signup = () => {
-  const navigate = useNavigate(); // âœ… hook placed correctly
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const passwordsMismatch = confirmPassword && password !== confirmPassword;
+
+  const arePasswordsMatching = () => password === confirmPassword;
+
+  const handleSignup = async () => {
+    setErrorMessage("");
+
+    if (!name || !email || !password || !confirmPassword) {
+      setErrorMessage("Please fill in every field to continue.");
+      return;
+    }
+
+    if (!arePasswordsMatching()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await signupService(name, email, password);
+      navigate("/verify-otp?flow=signup");
+    } catch (error) {
+      const backendMessage = error?.response?.data?.message;
+      setErrorMessage(backendMessage ?? "Signup failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
-      
       {/* Top-right leaf */}
       <img src={leafImg} className={styles.leafTopRight} alt="leaf" />
 
@@ -29,19 +60,26 @@ const Signup = () => {
 
       {/* Brown section */}
       <div className={styles.card}>
-        
         {/* Leaf beside "Sign Up" */}
         <img src={leafImg} className={styles.leafCard} alt="leaf" />
-
-        {/* this is a test for sure */}
 
         <h2>Sign Up</h2>
 
         <label>Name</label>
-        <input type="text" placeholder="Olivia Wilson" />
+        <input
+          type="text"
+          placeholder="Olivia Wilson"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
 
         <label>Email</label>
-        <input type="email" placeholder="hello@reallygreatsite.com" />
+        <input
+          type="email"
+          placeholder="hello@reallygreatsite.com"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
 
         <label>Password</label>
         <input
@@ -62,7 +100,17 @@ const Signup = () => {
           <p className={styles.error}>Passwords do not match.</p>
         )}
 
-        <button>Continue</button>
+        {errorMessage && !passwordsMismatch && (
+          <p className={styles.error}>{errorMessage}</p>
+        )}
+
+        <button
+          type="button"
+          onClick={handleSignup}
+          disabled={isSubmitting || passwordsMismatch}
+        >
+          {isSubmitting ? "Creating account" : "Continue"}
+        </button>
 
         <p className={styles.footer}>
           Already have an account?{" "}
