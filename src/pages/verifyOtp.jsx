@@ -1,5 +1,5 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./verifyOtp.module.css";
 
 import girlImg from "../assets/girl.png";
@@ -26,7 +26,7 @@ function VerifyOtp() {
 
   const handleVerify = () => {
     if (otp.join("").length < 4) return;
-    navigate(flow === "forgot" ? "/reset-password" : "/onboarding");
+    navigate(flow === "forgot" ? "/reset-password" : "/profile-setup");
   };
 
   return (
