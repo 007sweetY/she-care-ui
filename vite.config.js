@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const API_PROXY_TARGET = process.env.VITE_API_PROXY_TARGET ?? "http://10.42.0.212:5000";
+const API_PROXY_TARGET = process.env.VITE_API_PROXY_TARGET ?? "http://localhost:5000";
 
 // https://vite.dev/config/
 export default defineConfig({
