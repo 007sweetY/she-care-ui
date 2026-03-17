@@ -1,4 +1,5 @@
-﻿import girlImg from "../assets/girl.png";
+﻿import { useState } from "react";
+import girlImg from "../assets/girl.png";
 import styles from "./dashboard.module.css";
 
 const feelings = [
@@ -9,23 +10,23 @@ const feelings = [
   { emoji: "😎", title: "Excited" },
 ];
 
-const mindBodyStates = ["Calm", "Happy", "Stressed", "Tired"];
-
-const actions = [
-  { name: "Cycle Tracker", icon: "📊" },
-  { name: "Symptoms", icon: "📋" },
-  { name: "Diet Plan", icon: "🍓" },
-  { name: "Yoga", icon: "🧘" },
+const featureCards = [
+  { icon: "🌙", title: "Cycle Tracker", subtitle: "Track your cycle" },
+  { icon: "✨", title: "Symptoms", subtitle: "Log what matters" },
+  { icon: "🍓", title: "Diet Plan", subtitle: "Nutrition nudges" },
+  { icon: "🧘", title: "Yoga", subtitle: "Mood-balancing flows" },
 ];
 
 const navItems = [
-  { label: "Home", icon: "🏠" },
+  { label: "Home", icon: "🏠", active: true },
   { label: "Journal", icon: "📖" },
   { label: "Stats", icon: "📈" },
   { label: "Profile", icon: "👤" },
 ];
 
 const Dashboard = () => {
+  const [selectedMood, setSelectedMood] = useState("Great");
+
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.welcomeCard}>
@@ -42,7 +43,7 @@ const Dashboard = () => {
       </div>
 
       <div className={styles.periodCard}>
-        <p className={styles.periodLabel}>Next Period In</p>
+        <p className={styles.sectionTitle}>Next Period In</p>
         <div className={styles.periodCircle}>
           <span>15 Days</span>
         </div>
@@ -52,21 +53,29 @@ const Dashboard = () => {
       <div className={styles.section}>
         <p className={styles.sectionTitle}>How are you feeling today?</p>
         <div className={styles.feelingsRow}>
-          {feelings.map((item) => (
-            <button key={item.title} className={styles.feelingBtn}>
-              <span className={styles.emoji} role="img" aria-label={item.title}>
-                {item.emoji}
-              </span>
-              <span className={styles.emojiLabel}>{item.title}</span>
-            </button>
-          ))}
+          {feelings.map((item) => {
+            const isActive = selectedMood === item.title;
+            return (
+              <button
+                key={item.title}
+                className={`${styles.feelingBtn} ${isActive ? styles.activeMood : ""}`}
+                onClick={() => setSelectedMood(item.title)}
+                aria-pressed={isActive}
+              >
+                <span className={styles.emoji} role="img" aria-label={item.title}>
+                  {item.emoji}
+                </span>
+                <span className={styles.emojiLabel}>{item.title}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div className={styles.section}>
         <p className={styles.sectionTitle}>Mind & Body</p>
         <div className={styles.mindBodyRow}>
-          {mindBodyStates.map((state) => (
+          {["Calm", "Happy", "Stressed", "Tired"].map((state) => (
             <span key={state} className={styles.stateChip}>
               {state}
             </span>
@@ -75,10 +84,11 @@ const Dashboard = () => {
       </div>
 
       <div className={styles.actionsGrid}>
-        {actions.map((action) => (
-          <div key={action.name} className={styles.actionCard}>
-            <div className={styles.actionIcon}>{action.icon}</div>
-            <p>{action.name}</p>
+        {featureCards.map((card) => (
+          <div key={card.title} className={styles.actionCard}>
+            <div className={styles.actionIcon}>{card.icon}</div>
+            <p className={styles.actionTitle}>{card.title}</p>
+            <p className={styles.actionSubtitle}>{card.subtitle}</p>
           </div>
         ))}
       </div>
@@ -94,9 +104,17 @@ const Dashboard = () => {
         <p className={styles.progressValue}>1.5L / 2L</p>
       </div>
 
+      <div className={styles.ctaWrapper}>
+        <button className={styles.ctaButton}>+ Add Entry</button>
+        <p className={styles.ctaMeta}>Mood · Water · Symptoms</p>
+      </div>
+
       <nav className={styles.bottomNav}>
         {navItems.map((item) => (
-          <button key={item.label} className={styles.navButton}>
+          <button
+            key={item.label}
+            className={`${styles.navButton} ${item.active ? styles.navActive : ""}`}
+          >
             <span aria-hidden>{item.icon}</span>
             <span>{item.label}</span>
           </button>

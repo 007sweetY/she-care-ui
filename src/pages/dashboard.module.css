@@ -1,4 +1,4 @@
-.pageWrapper {
+﻿.pageWrapper {
   background: #fdeee1;
   min-height: 100vh;
   padding: 24px 16px 32px;
@@ -16,12 +16,13 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+  box-shadow: 0 12px 28px rgba(243, 105, 43, 0.2);
 }
 
 .welcomeTitle {
   margin: 0;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 22px;
   color: #e35d2a;
 }
 
@@ -30,9 +31,18 @@
 }
 
 .welcomeSubtitle {
-  margin: 4px 0 0;
+  margin: 0;
   color: #8e6a57;
   font-size: 12px;
+}
+
+.avatarLabel {
+  font-size: 11px;
+  color: #b86a41;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 2px 10px;
+  border-radius: 999px;
+  width: fit-content;
 }
 
 .avatarRow {
@@ -51,14 +61,6 @@
   box-shadow: 0 8px 20px rgba(227, 93, 42, 0.25);
 }
 
-.avatarLabel {
-  font-size: 11px;
-  color: #b86a41;
-  background: rgba(255, 255, 255, 0.75);
-  padding: 2px 10px;
-  border-radius: 999px;
-}
-
 .periodCard {
   background: #fdf1e3;
   border-radius: 30px;
@@ -70,10 +72,11 @@
   gap: 8px;
 }
 
-.periodLabel {
+.sectionTitle {
   margin: 0;
-  color: #bb5c2f;
   font-weight: 600;
+  color: #a85a26;
+  font-size: 16px;
 }
 
 .periodCircle {
@@ -98,20 +101,17 @@
 
 .section {
   background: #ffe8d5;
-  border-radius: 30px;
-  padding: 16px;
-}
-
-.sectionTitle {
-  margin: 0 0 10px;
-  font-weight: 600;
-  color: #a85a26;
+  border-radius: 32px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .feelingsRow {
   display: flex;
   justify-content: space-between;
-  gap: 6px;
+  gap: 10px;
 }
 
 .feelingBtn {
@@ -119,18 +119,26 @@
   background: white;
   border: none;
   border-radius: 20px;
-  padding: 10px 0;
+  padding: 12px 0;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
 
 .feelingBtn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 25px rgba(243, 105, 43, 0.2);
+}
+
+.activeMood {
+  background: linear-gradient(180deg, #ffe6d1, #ffd2b6);
+  border: 1px solid #f98c4c;
+  box-shadow: 0 15px 30px rgba(243, 105, 43, 0.2);
 }
 
 .emoji {
@@ -156,31 +164,49 @@
   color: #c35b2a;
   font-size: 12px;
   font-weight: 600;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .actionsGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
 }
 
 .actionCard {
   background: #f9641d;
   border-radius: 30px;
-  padding: 18px 12px;
+  padding: 22px 16px;
   color: white;
-  box-shadow: 0 10px 25px rgba(233, 123, 73, 0.3);
+  box-shadow: 0 15px 30px rgba(233, 123, 73, 0.35);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
   font-weight: 600;
   font-size: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actionCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 40px rgba(233, 123, 73, 0.35);
 }
 
 .actionIcon {
   font-size: 26px;
+}
+
+.actionTitle {
+  margin: 0;
+  font-size: 16px;
+}
+
+.actionSubtitle {
+  margin: 0;
+  font-size: 11px;
+  opacity: 0.8;
 }
 
 .progressCard {
@@ -188,7 +214,7 @@
   border-radius: 30px;
   padding: 18px;
   color: white;
-  box-shadow: 0 12px 30px rgba(249, 98, 27, 0.35);
+  box-shadow: 0 20px 35px rgba(249, 98, 27, 0.35);
 }
 
 .progressHeader {
@@ -205,15 +231,20 @@
 
 .progressBar {
   margin: 12px 0;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.4);
 }
 
 .progressFill {
   height: 100%;
-  background: white;
-  border-radius: 8px;
+  background: linear-gradient(90deg, #fff, #ffd3b0);
+  border-radius: 999px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  transition: width 0.4s ease;
 }
 
 .progressValue {
@@ -222,11 +253,43 @@
   opacity: 0.8;
 }
 
+.ctaWrapper {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ctaButton {
+  background: linear-gradient(135deg, #f9641d, #ffae65);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 18px 30px rgba(249, 98, 27, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 35px rgba(249, 98, 27, 0.5);
+}
+
+.ctaMeta {
+  margin: 0;
+  font-size: 11px;
+  color: #a15e31;
+}
+
 .bottomNav {
   display: flex;
   justify-content: space-between;
   background: white;
-  border-radius: 30px;
+  border-radius: 40px;
   padding: 10px 12px;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
 }
@@ -242,8 +305,16 @@
   font-size: 11px;
   color: #a15e31;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 30px;
 }
 
 .navButton span:first-child {
   font-size: 18px;
+}
+
+.navActive {
+  background: linear-gradient(135deg, #f9641d, #ffae65);
+  color: white;
+  box-shadow: 0 12px 20px rgba(249, 98, 27, 0.4);
 }
