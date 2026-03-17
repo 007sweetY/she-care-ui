@@ -1,10 +1,37 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
+import { loginService } from "../services/signupService";
 import styles from "./login.module.css";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await loginService(formData.email, formData.password);
+      console.log("Login successful:", response);
+      // Navigate to profile setup or dashboard
+      navigate("/profile-setup");
+    } catch (error) {
+      console.error("Login failed:", error);
+      // Handle error, show message
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -36,16 +63,18 @@ const Login = () => {
 
         <h1>Log in</h1>
 
-        <label>Email</label>
-        <input type="email" placeholder="hello@reallygreatsite.com" />
+        <form onSubmit={handleSubmit}>
+          <label>Email</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="hello@reallygreatsite.com" required />
 
-        <label>Password</label>
-        <input type="password" placeholder="******" />
+          <label>Password</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="******" required />
 
-        {/* Bottom CTA bar */}
-        <div className={styles.ctaBar}>
-          <button>Login</button>
-        </div>
+          {/* Bottom CTA bar */}
+          <div className={styles.ctaBar}>
+            <button type="submit">Login</button>
+          </div>
+        </form>
         
         <p className={styles.forgot}>
           <span onClick={() => navigate("/verify-otp")}>

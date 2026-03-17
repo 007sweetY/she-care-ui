@@ -1,13 +1,17 @@
-import styles from "./profileSetup.module.css";
+import { useState } from "react";
 import girlImage from "../assets/girl.png";
 import leafImage from "../assets/leaf.png";
+import { completeProfile } from "../services/signupService";
+import styles from "./profileSetup.module.css";
 
+// will eventually fetch these from backend based on user's signup choices,
+// but hardcoding for now to speed up development
 const healthGoals = [
-  { value: "PCOS Management", icon: "🌸" },
-  { value: "Period Tracking", icon: "🩸" },
-  { value: "Pregnancy Care", icon: "🤰" },
-  { value: "Weight Loss", icon: "🏃‍♀️" },
-  { value: "General Wellness", icon: "🍃" },
+  { id: 1, value: "PCOS Management", icon: "🌸" },
+  { id: 2, value: "Period Tracking", icon: "🩸" },
+  { id: 3, value: "Pregnancy Care", icon: "🤰" },
+  { id: 4, value: "Weight Loss", icon: "🏃‍♀️" },
+  { id: 5, value: "General Wellness", icon: "🍃" },
 ];
 
 const features = [
@@ -18,6 +22,41 @@ const features = [
 ];
 
 export default function ProfileSetup() {
+  const [formData, setFormData] = useState({
+    age: "",
+    height: "",
+    weight: "",
+    city: "",
+    healthGoal: 1
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const payload = {
+        age: parseInt(formData.age),
+        height: parseInt(formData.height),
+        weight: parseInt(formData.weight),
+        city: formData.city,
+        healthGoal: parseInt(formData.healthGoal)
+      };
+      const response = await completeProfile(payload);
+      console.log("Profile completed:", response);
+      // Handle success, maybe navigate to next page
+    } catch (error) {
+      console.error("Error completing profile:", error);
+      // Handle error
+    }
+  };
+
   return (
     <div className={styles.screen}>
       <div className={styles.content}>
@@ -46,49 +85,51 @@ export default function ProfileSetup() {
               <h2>Complete Your Profile</h2>
               <p>Fill in the details below to personalize your experience.</p>
             </header>
-            <div className={styles.innerForm}>
-              <div className={styles.field}>
-                <label htmlFor="age">Age</label>
-                <input id="age" type="number" defaultValue="32" />
-              </div>
-
-              <div className={styles.dualFieldRow}>
-                <div className={`${styles.field} ${styles.halfField}`}>
-                  <label htmlFor="height">Height</label>
-                  <input id="height" defaultValue="162 cm" />
+            <form onSubmit={handleSubmit}>
+              <div className={styles.innerForm}>
+                <div className={styles.field}>
+                  <label htmlFor="age">Age</label>
+                  <input id="age" name="age" type="number" value={formData.age} onChange={handleChange} required />
                 </div>
-                <div className={`${styles.field} ${styles.halfField}`}>
-                  <label htmlFor="weight">Weight</label>
-                  <input id="weight" defaultValue="58 kg" />
+
+                <div className={styles.dualFieldRow}>
+                  <div className={`${styles.field} ${styles.halfField}`}>
+                    <label htmlFor="height">Height</label>
+                    <input id="height" name="height" value={formData.height} onChange={handleChange} required />
+                  </div>
+                  <div className={`${styles.field} ${styles.halfField}`}>
+                    <label htmlFor="weight">Weight</label>
+                    <input id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
+                  </div>
+                </div>
+
+                <div className={styles.field}>
+                  <label htmlFor="city">City</label>
+                  <div className={styles.cityWrapper}>
+                    <input id="city" name="city" value={formData.city} onChange={handleChange} required />
+                    <span className={styles.cityIcon} aria-hidden />
+                  </div>
+                </div>
+
+                <div className={styles.field}>
+                  <label htmlFor="healthGoal">Health Goal</label>
+                  <select id="healthGoal" name="healthGoal" value={formData.healthGoal} onChange={handleChange}>
+                    {healthGoals.map((goal) => (
+                      <option key={goal.id} value={goal.id}>
+                        {goal.icon} {goal.value}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
-              <div className={styles.field}>
-                <label htmlFor="city">City</label>
-                <div className={styles.cityWrapper}>
-                  <input id="city" defaultValue="New York" />
-                  <span className={styles.cityIcon} aria-hidden />
-                </div>
+              <div className={styles.buttonGroup}>
+                <button type="submit" className={styles.continueBtn}>
+                  Continue
+                </button>
+                {/* <p className={styles.note}>You can update these details anytime.</p> */}
               </div>
-
-              <div className={styles.field}>
-                <label htmlFor="goal">Health Goal</label>
-                <select id="goal" defaultValue={healthGoals[0].value}>
-                  {healthGoals.map((goal) => (
-                    <option key={goal.value} value={goal.value}>
-                      {goal.icon} {goal.value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className={styles.buttonGroup}>
-              <button type="button" className={styles.continueBtn}>
-                Continue
-              </button>
-              {/* <p className={styles.note}>You can update these details anytime.</p> */}
-            </div>
+            </form>
 
             {/* <div className={styles.featureRow}>
               {features.map((feature) => (

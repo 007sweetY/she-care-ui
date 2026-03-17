@@ -8,6 +8,20 @@ const api = axios.create({
 });
 
 // ================================
+//  REQUEST INTERCEPTOR FOR JWT
+// ================================
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// ================================
 //  RESPONSE INTERCEPTOR
 // ================================
 api.interceptors.response.use(
@@ -24,6 +38,8 @@ api.interceptors.response.use(
       "auth/login",
       "auth/register",
       "/login",
+      "User/signup",
+      "User/login" // assuming login endpoint
     ];
 
     if (ignore401For.some((path) => url?.includes(path))) {
@@ -33,7 +49,7 @@ api.interceptors.response.use(
     // 🔥 True unauthorized → logout
     if (status === 401) {
       localStorage.removeItem("token");
-      redirectToLogin();
+      // redirectToLogin(); // commented out since not defined
     }
 
     return Promise.reject(error);
