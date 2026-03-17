@@ -1,0 +1,447 @@
+.pageWrapper {
+  min-height: 100vh;
+  padding: 24px 20px 150px;
+  background: linear-gradient(180deg, #f6f1ec, #ffe3d1, #ffcfb5);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  position: relative;
+  color: #4f2a18;
+  max-width: 420px;
+  width: min(420px, 100%) ;
+  margin: 0 auto;
+}
+
+.leafTopLeft,
+.leafTopRight {
+  position: absolute;
+  width: 48px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.leafTopLeft {
+  top: 12px;
+  left: 16px;
+}
+
+.leafTopRight {
+  top: 18px;
+  right: 20px;
+  transform: rotate(15deg);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.pageSubtitle {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(79, 42, 24, 0.7);
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 18px 20px;
+  box-shadow: 0 18px 40px rgba(232, 106, 51, 0.2);
+  position: relative;
+  border: 1px solid rgba(232, 106, 51, 0.08);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e86a33;
+}
+
+.predictionCard {
+  border: 1px solid rgba(232, 106, 51, 0.18);
+  background: #fff5ee;
+}
+
+.predictionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cardEmoji {
+  font-size: 20px;
+}
+
+.predictionRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.predictionRow > div {
+  flex: 1;
+  padding: 10px 8px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(232, 106, 51, 0.1);
+  box-shadow: 0 10px 20px rgba(232, 106, 51, 0.12);
+}
+
+.predictionLabel {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: rgba(79, 42, 24, 0.8);
+}
+
+.predictionValue {
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.calendarCard {
+  padding-bottom: 14px;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendarNote {
+  font-size: 12px;
+  color: rgba(79, 42, 24, 0.75);
+}
+
+.weekHeaders {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: rgba(79, 42, 24, 0.7);
+  margin-bottom: 6px;
+}
+
+.calendarGrid {
+  display: grid;
+  gap: 6px;
+}
+
+.weekRow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.dayCell {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  border: none;
+  background: white;
+  font-weight: 600;
+  color: #4f2a18;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayCell:hover {
+  transform: translateY(-3px);
+}
+
+.emptyCell {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  background: transparent;
+}
+
+.selectedDay {
+  border: 3px solid #e86a33;
+  box-shadow: 0 0 0 4px rgba(232, 106, 51, 0.2), 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.periodDay {
+  background: #ff6b6b;
+  color: white;
+}
+
+.ovulationDay {
+  background: #a78bfa;
+  color: white;
+}
+
+.fertileDay {
+  background: #fbcfe8;
+}
+
+.normalDay {
+  background: white;
+}
+
+.detailsCard {
+  background: rgba(255, 244, 236, 0.95);
+}
+
+.detailsDate {
+  margin: 6px 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.detailsRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.detailsLabel {
+  margin: 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: rgba(79, 42, 24, 0.7);
+}
+
+.detailsValue {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.detailsNotes {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #58321a;
+}
+
+.summaryCard {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.summaryLabel {
+  margin: 0;
+  font-size: 11px;
+  color: rgba(79, 42, 24, 0.6);
+}
+
+.summaryValue {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e86a33;
+}
+
+.insightsCard {
+  background: rgba(255, 255, 255, 0.85);
+  padding-bottom: 14px;
+}
+
+.insightsList {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  line-height: 1.6;
+  color: rgba(79, 42, 24, 0.8);
+}
+
+.addEntryButton {
+  bottom: 120px;
+  right: 24px;
+  background: #e86a33;
+  border: none;
+  border-radius: 22px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 12px 24px rgba(232, 106, 51, 0.3);
+  cursor: pointer;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  padding: 16px;
+}
+
+.modal {
+  background: white;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 360px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #e86a33;
+}
+
+.modalClose {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modalSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modalLabel {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(79, 42, 24, 0.65);
+}
+
+.moodRow,
+.symptomRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modalMood,
+.symptomChip {
+  border: 1px solid rgba(232, 106, 51, 0.3);
+  border-radius: 18px;
+  background: #fff8f4;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modalMoodSelected,
+.symptomSelected {
+  border-color: #e86a33;
+  background: #ffe3d1;
+}
+
+.modalTextarea {
+  border-radius: 16px;
+  border: 1px solid rgba(232, 106, 51, 0.3);
+  padding: 10px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.modalSave {
+  margin-top: 4px;
+  background: #e86a33;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translate(-46%,10%);
+  width: min(409px, 65%);
+  margin: 0 auto;
+  padding: 2px 24px 1px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 32px 32px 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1px;
+  box-shadow: 0 -14px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(232, 106, 51, 0.08);
+  z-index: 20;
+  /* max-height: 50px; */
+}
+
+.navButton {
+  flex: 1;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 1px;
+  cursor: pointer;
+  border-radius: 16px;
+  color: rgba(79, 42, 24, 0.6);
+  transform: translateY(-10px);
+}
+
+.navButton:focus-visible {
+  outline: 2px solid rgba(232, 106, 51, 0.6);
+  outline-offset: 2px;
+}
+
+.navIconWrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+.navIconInactive {
+  color: #b7b7b7;
+}
+
+.navIconActive {
+  background: #ffe3d1;
+  color: #e86a33;
+}
+
+.navLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(79, 42, 24, 0.65);
+}
+
+.navActive .navLabel {
+  color: #4f2a18;
+}
+
+.navActive {
+  color: #e86a33;
+}
