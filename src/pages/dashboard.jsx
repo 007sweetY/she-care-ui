@@ -1,28 +1,28 @@
-import girlImg from "../assets/girl.png";
+﻿import girlImg from "../assets/girl.png";
 import styles from "./dashboard.module.css";
 
 const feelings = [
-  { label: "??", title: "Great" },
-  { label: "??", title: "Happy" },
-  { label: "??", title: "Calm" },
-  { label: "??", title: "Tired" },
-  { label: "??", title: "Excited" },
+  { emoji: "😀", title: "Great" },
+  { emoji: "😊", title: "Happy" },
+  { emoji: "😌", title: "Calm" },
+  { emoji: "😕", title: "Tired" },
+  { emoji: "😎", title: "Excited" },
 ];
 
 const mindBodyStates = ["Calm", "Happy", "Stressed", "Tired"];
 
 const actions = [
-  { name: "Cycle Tracker", icon: "??" },
-  { name: "Symptoms", icon: "??" },
-  { name: "Diet Plan", icon: "??" },
-  { name: "Yoga", icon: "??" },
+  { name: "Cycle Tracker", icon: "📊" },
+  { name: "Symptoms", icon: "📋" },
+  { name: "Diet Plan", icon: "🍓" },
+  { name: "Yoga", icon: "🧘" },
 ];
 
 const navItems = [
-  { label: "Home", icon: "??" },
-  { label: "Journal", icon: "??" },
-  { label: "Stats", icon: "??" },
-  { label: "Profile", icon: "??" },
+  { label: "Home", icon: "🏠" },
+  { label: "Journal", icon: "📖" },
+  { label: "Stats", icon: "📈" },
+  { label: "Profile", icon: "👤" },
 ];
 
 const Dashboard = () => {
@@ -31,7 +31,7 @@ const Dashboard = () => {
       <div className={styles.welcomeCard}>
         <div>
           <p className={styles.welcomeTitle}>
-            Welcome to <span>SheCare</span> ??
+            Welcome to <span>SheCare</span> 🌸
           </p>
           <p className={styles.welcomeSubtitle}>Your wellness journey continues</p>
         </div>
@@ -54,9 +54,10 @@ const Dashboard = () => {
         <div className={styles.feelingsRow}>
           {feelings.map((item) => (
             <button key={item.title} className={styles.feelingBtn}>
-              <span role="img" aria-label={item.title}>
-                {item.label}
+              <span className={styles.emoji} role="img" aria-label={item.title}>
+                {item.emoji}
               </span>
+              <span className={styles.emojiLabel}>{item.title}</span>
             </button>
           ))}
         </div>
@@ -84,7 +85,7 @@ const Dashboard = () => {
 
       <div className={styles.progressCard}>
         <div className={styles.progressHeader}>
-          <p>Today�s Progress</p>
+          <p>Today’s Progress</p>
           <span>Water Intake</span>
         </div>
         <div className={styles.progressBar}>

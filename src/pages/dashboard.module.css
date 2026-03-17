@@ -120,13 +120,27 @@
   border: none;
   border-radius: 20px;
   padding: 10px 0;
-  font-size: 22px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 .feelingBtn:hover {
   transform: translateY(-2px);
+}
+
+.emoji {
+  font-size: 24px;
+}
+
+.emojiLabel {
+  font-size: 12px;
+  color: #c35b2a;
+  font-weight: 600;
 }
 
 .mindBodyRow {
