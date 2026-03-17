@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 16px;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  position: relative;
 }
 
 .welcomeCard {
@@ -17,6 +18,29 @@
   align-items: center;
   gap: 12px;
   box-shadow: 0 12px 28px rgba(243, 105, 43, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.headerLeafTop,
+.headerLeafBottom {
+  position: absolute;
+  width: 32px;
+  height: auto;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.headerLeafTop {
+  top: 6px;
+  left: 8px;
+}
+
+.headerLeafBottom {
+  bottom: 8px;
+  right: 10px;
+  transform: rotate(30deg);
+  opacity: 0.4;
 }
 
 .welcomeTitle {
@@ -70,6 +94,8 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
 .sectionTitle {
@@ -93,6 +119,15 @@
   color: #e35d2a;
 }
 
+.periodLeaf {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  width: 36px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 .cycleDay {
   margin: 0;
   font-size: 12px;
@@ -106,6 +141,55 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
+}
+
+.sectionLeafMoodLeft {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  width: 26px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.sectionLeafMoodRight {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  width: 26px;
+  opacity: 0.35;
+  pointer-events: none;
+  transform: rotate(20deg);
+}
+
+.sectionLeafMind {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 28px;
+  opacity: 0.35;
+  pointer-events: none;
+  transform: rotate(10deg);
+}
+
+.sectionLeafMindAlt {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: 24px;
+  opacity: 0.3;
+  pointer-events: none;
+  transform: rotate(-15deg);
+}
+
+.sectionLeafProgress {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  width: 30px;
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .feelingsRow {
@@ -167,6 +251,38 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
+.actionsGridWrapper {
+  position: relative;
+}
+
+.sectionLeafActions {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  width: 30px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.sectionLeafCta {
+  position: absolute;
+  top: -6px;
+  right: 10px;
+  width: 30px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.sectionLeafNav {
+  position: absolute;
+  left: 10px;
+  bottom: 60px;
+  width: 30px;
+  opacity: 0.3;
+  pointer-events: none;
+  transform: rotate(-20deg);
+}
+
 .actionsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -215,6 +331,7 @@
   padding: 18px;
   color: white;
   box-shadow: 0 20px 35px rgba(249, 98, 27, 0.35);
+  position: relative;
 }
 
 .progressHeader {
@@ -285,6 +402,15 @@
   color: #a15e31;
 }
 
+.sectionLeafCta {
+  position: absolute;
+  top: -10px;
+  right: 8px;
+  width: 24px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 .bottomNav {
   display: flex;
   justify-content: space-between;
@@ -317,4 +443,14 @@
   background: linear-gradient(135deg, #f9641d, #ffae65);
   color: white;
   box-shadow: 0 12px 20px rgba(249, 98, 27, 0.4);
+}
+
+.sectionLeafNav {
+  position: absolute;
+  right: 14px;
+  bottom: 80px;
+  width: 26px;
+  opacity: 0.25;
+  pointer-events: none;
+  transform: rotate(-30deg);
 }

@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import girlImg from "../assets/girl.png";
+import leafImg from "../assets/leaf.png";
 import styles from "./dashboard.module.css";
 
 const feelings = [
@@ -30,6 +31,8 @@ const Dashboard = () => {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.welcomeCard}>
+        <img src={leafImg} className={styles.headerLeafTop} alt="decorative leaf" />
+        <img src={leafImg} className={styles.headerLeafBottom} alt="decorative leaf" />
         <div>
           <p className={styles.welcomeTitle}>
             Welcome to <span>SheCare</span> 🌸
@@ -43,6 +46,7 @@ const Dashboard = () => {
       </div>
 
       <div className={styles.periodCard}>
+        <img src={leafImg} className={styles.periodLeaf} alt="decorative leaf" />
         <p className={styles.sectionTitle}>Next Period In</p>
         <div className={styles.periodCircle}>
           <span>15 Days</span>
@@ -51,6 +55,8 @@ const Dashboard = () => {
       </div>
 
       <div className={styles.section}>
+        <img src={leafImg} className={styles.sectionLeafMoodLeft} alt="decorative leaf" />
+        <img src={leafImg} className={styles.sectionLeafMoodRight} alt="decorative leaf" />
         <p className={styles.sectionTitle}>How are you feeling today?</p>
         <div className={styles.feelingsRow}>
           {feelings.map((item) => {
@@ -73,6 +79,8 @@ const Dashboard = () => {
       </div>
 
       <div className={styles.section}>
+        <img src={leafImg} className={styles.sectionLeafMind} alt="decorative leaf" />
+        <img src={leafImg} className={styles.sectionLeafMindAlt} alt="decorative leaf" />
         <p className={styles.sectionTitle}>Mind & Body</p>
         <div className={styles.mindBodyRow}>
           {["Calm", "Happy", "Stressed", "Tired"].map((state) => (
@@ -83,17 +91,21 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className={styles.actionsGrid}>
-        {featureCards.map((card) => (
-          <div key={card.title} className={styles.actionCard}>
-            <div className={styles.actionIcon}>{card.icon}</div>
-            <p className={styles.actionTitle}>{card.title}</p>
-            <p className={styles.actionSubtitle}>{card.subtitle}</p>
-          </div>
-        ))}
+      <div className={styles.actionsGridWrapper}>
+        <img src={leafImg} className={styles.sectionLeafActions} alt="decorative leaf" />
+        <div className={styles.actionsGrid}>
+          {featureCards.map((card) => (
+            <div key={card.title} className={styles.actionCard}>
+              <div className={styles.actionIcon}>{card.icon}</div>
+              <p className={styles.actionTitle}>{card.title}</p>
+              <p className={styles.actionSubtitle}>{card.subtitle}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className={styles.progressCard}>
+        <img src={leafImg} className={styles.sectionLeafProgress} alt="decorative leaf" />
         <div className={styles.progressHeader}>
           <p>Today’s Progress</p>
           <span>Water Intake</span>
@@ -105,9 +117,12 @@ const Dashboard = () => {
       </div>
 
       <div className={styles.ctaWrapper}>
+        <img src={leafImg} className={styles.sectionLeafCta} alt="decorative leaf" />
         <button className={styles.ctaButton}>+ Add Entry</button>
         <p className={styles.ctaMeta}>Mood · Water · Symptoms</p>
       </div>
+
+      <img src={leafImg} className={styles.sectionLeafNav} alt="decorative leaf" />
 
       <nav className={styles.bottomNav}>
         {navItems.map((item) => (
