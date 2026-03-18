@@ -376,8 +376,8 @@
 }
 
 .bottomNav {
-  position: fixed;
-  bottom: 14px;
+  /* position: fixed; */
+  /* bottom: 14px;
   left: 50%;
   transform: translate(-46%,10%);
   width: min(409px, 65%);
@@ -390,8 +390,15 @@
   gap: 1px;
   box-shadow: 0 -14px 30px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(232, 106, 51, 0.08);
-  z-index: 20;
+  z-index: 20; */
   /* max-height: 50px; */
+
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-radius: 40px;
+  padding: 10px 12px;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
 }
 
 .navButton {
