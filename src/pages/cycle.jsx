@@ -79,7 +79,7 @@ const Cycle = () => {
   const phaseLabel = getPhaseLabel(selectedDay);
 
   return (
-    <div className={styles.pageWrapper}>
+    <div className={`page ${styles.pageWrapper}`}>
       <img src={leafImg} className={styles.leafTopLeft} alt="leaf decoration" />
       <img src={leafImg} className={styles.leafTopRight} alt="leaf decoration" />
 

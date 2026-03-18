@@ -29,7 +29,7 @@ const Dashboard = () => {
   const [selectedMood, setSelectedMood] = useState("Great");
 
   return (
-    <div className={styles.pageWrapper}>
+    <div className={`page ${styles.pageWrapper}`}>
       <div className={styles.welcomeCard}>
         <img src={leafImg} className={styles.headerLeafTop} alt="decorative leaf" />
         <img src={leafImg} className={styles.headerLeafBottom} alt="decorative leaf" />

@@ -102,6 +102,16 @@ const SymptomsPage = () => {
   const [painLevel, setPainLevel] = useState(3);
   const [notes, setNotes] = useState("");
 
+  const getPainEmoji = (level) => {
+    if (level <= 2) return "🙂";
+    if (level <= 4) return "😌";
+    if (level <= 6) return "😣";
+    if (level <= 8) return "😖";
+    return "😫";
+  };
+
+  const currentPainEmoji = getPainEmoji(painLevel);
+
   const toggleSymptom = (symptom) => {
     setSelectedSymptoms((prev) =>
       prev.includes(symptom)
@@ -111,8 +121,8 @@ const SymptomsPage = () => {
   };
 
   return (
-    <main className={styles.page}>
-      <div className={styles.inner}>
+    <main className={`page ${styles.symptomsRoot}`}>
+      <div className={styles.content}>
         {/* HEADER */}
         <header className={styles.headerCard}>
           <p className={styles.title}>🌸 Symptoms</p>
@@ -152,19 +162,29 @@ const SymptomsPage = () => {
 
         {/* PAIN */}
         <section className={styles.card}>
-          {/* <p className={styles.sectionTitle}>😣 Pain Level: {painLevel}</p> */}
           <div className={styles.painHeader}>
-            <span>😣 Pain Level</span>
+            <span>
+              {currentPainEmoji} Pain Level
+            </span>
             <span>{painLevel}</span>
           </div>
-          <input
-            type="range"
-            min="0"
-            max="10"
-            value={painLevel}
-            onChange={(e) => setPainLevel(Number(e.target.value))}
-            className={styles.slider}
-          />
+          <div className={styles.painSliderWrapper}>
+            <span
+              className={styles.painEmoji}
+              style={{ left: `${(painLevel / 10) * 100}%` }}
+            >
+              {currentPainEmoji}
+            </span>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              value={painLevel}
+              onChange={(e) => setPainLevel(Number(e.target.value))}
+              className={`${styles.slider} ${styles.painSlider}`}
+              aria-label="Pain level slider"
+            />
+          </div>
         </section>
 
         {/* NOTES */}

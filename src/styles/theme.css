@@ -1,0 +1,25 @@
+:root {
+  --primary: #E85D2A;
+  --primary-light: #FF9A6C;
+  --bg: #FFF3EC;
+  --card: #FFFFFF;
+  --soft: #FFD6C2;
+  --text: #C94F2D;
+  --primary-rgb: 232, 93, 42;
+  --text-rgb: 201, 79, 45;
+  --card-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.12);
+  --card-shadow-strong: 0 18px 35px rgba(var(--primary-rgb), 0.3);
+  --gradient-accent: linear-gradient(135deg, var(--primary-light), var(--primary));
+  --text-muted: rgba(var(--text-rgb), 0.7);
+  --outer-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+  --border-soft: rgba(var(--primary-rgb), 0.08);
+  --border-medium: rgba(var(--primary-rgb), 0.18);
+  --shadow-soft: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --chip-shadow: 0 10px 20px rgba(var(--primary-rgb), 0.15);
+  --selection-outline: 0 0 0 4px rgba(var(--primary-rgb), 0.25);
+  --backdrop: rgba(0, 0, 0, 0.4);
+  --modal-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  --white-fade: rgba(255, 255, 255, 0.3);
+  --white-soft: rgba(255, 255, 255, 0.4);
+  --white-glow: rgba(255, 255, 255, 0.6);
+}

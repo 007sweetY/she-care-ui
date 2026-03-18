@@ -1,15 +1,14 @@
 .pageWrapper {
   min-height: 100vh;
-  padding: 24px 20px 150px;
-  background: linear-gradient(180deg, #f6f1ec, #ffe3d1, #ffcfb5);
+  padding: 32px 20px 120px;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--soft) 55%, var(--primary-light) 100%);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   position: relative;
-  color: #4f2a18;
-  max-width: 420px;
-  width: min(420px, 100%) ;
+  color: var(--text);
+  width: min(420px, 100%);
   margin: 0 auto;
 }
 
@@ -42,33 +41,34 @@
   margin: 0;
   font-size: 24px;
   font-weight: 700;
+  color: var(--primary);
 }
 
 .pageSubtitle {
   margin: 0;
   font-size: 14px;
-  color: rgba(79, 42, 24, 0.7);
+  color: var(--text-muted);
 }
 
 .card {
-  background: #ffffff;
-  border-radius: 30px;
-  padding: 18px 20px;
-  box-shadow: 0 18px 40px rgba(232, 106, 51, 0.2);
+  background: var(--card);
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-soft);
   position: relative;
-  border: 1px solid rgba(232, 106, 51, 0.08);
 }
 
 .cardTitle {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #e86a33;
+  color: var(--primary);
 }
 
 .predictionCard {
-  border: 1px solid rgba(232, 106, 51, 0.18);
-  background: #fff5ee;
+  border: 1px solid var(--border-medium);
+  background: var(--soft);
 }
 
 .predictionHeader {
@@ -91,23 +91,24 @@
 .predictionRow > div {
   flex: 1;
   padding: 10px 8px;
-  background: #ffffff;
+  background: var(--card);
   border-radius: 18px;
-  border: 1px solid rgba(232, 106, 51, 0.1);
-  box-shadow: 0 10px 20px rgba(232, 106, 51, 0.12);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .predictionLabel {
   margin: 0;
   font-size: 11px;
   letter-spacing: 0.5px;
-  color: rgba(79, 42, 24, 0.8);
+  color: var(--text-muted);
 }
 
 .predictionValue {
   margin: 4px 0 0;
   font-weight: 700;
   font-size: 14px;
+  color: var(--text);
 }
 
 .calendarCard {
@@ -123,7 +124,7 @@
 
 .calendarNote {
   font-size: 12px;
-  color: rgba(79, 42, 24, 0.75);
+  color: var(--text-muted);
 }
 
 .weekHeaders {
@@ -132,7 +133,7 @@
   text-align: center;
   font-size: 10px;
   letter-spacing: 0.5px;
-  color: rgba(79, 42, 24, 0.7);
+  color: var(--text-muted);
   margin-bottom: 6px;
 }
 
@@ -151,11 +152,11 @@
   aspect-ratio: 1 / 1;
   border-radius: 16px;
   border: none;
-  background: white;
+  background: var(--card);
   font-weight: 600;
-  color: #4f2a18;
+  color: var(--text);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -173,36 +174,39 @@
 }
 
 .selectedDay {
-  border: 3px solid #e86a33;
-  box-shadow: 0 0 0 4px rgba(232, 106, 51, 0.2), 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 3px solid var(--primary);
+  box-shadow: var(--selection-outline), var(--shadow-soft);
 }
 
 .periodDay {
-  background: #ff6b6b;
-  color: white;
+  background: var(--primary);
+  color: var(--card);
 }
 
 .ovulationDay {
-  background: #a78bfa;
-  color: white;
+  background: var(--primary-light);
+  color: var(--card);
 }
 
 .fertileDay {
-  background: #fbcfe8;
+  background: var(--soft);
+  color: var(--text);
+  border: 1px dashed var(--border-soft);
 }
 
 .normalDay {
-  background: white;
+  background: var(--card);
 }
 
 .detailsCard {
-  background: rgba(255, 244, 236, 0.95);
+  background: var(--card);
 }
 
 .detailsDate {
   margin: 6px 0 12px;
   font-size: 18px;
   font-weight: 600;
+  color: var(--text);
 }
 
 .detailsRow {
@@ -216,24 +220,25 @@
   margin: 0;
   font-size: 11px;
   text-transform: uppercase;
-  color: rgba(79, 42, 24, 0.7);
+  color: var(--text-muted);
 }
 
 .detailsValue {
   margin: 2px 0 0;
   font-size: 14px;
   font-weight: 600;
+  color: var(--primary);
 }
 
 .detailsNotes {
   margin: 8px 0 0;
   font-size: 13px;
   line-height: 1.4;
-  color: #58321a;
+  color: var(--text-muted);
 }
 
 .summaryCard {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--card);
 }
 
 .summaryRow {
@@ -246,18 +251,18 @@
 .summaryLabel {
   margin: 0;
   font-size: 11px;
-  color: rgba(79, 42, 24, 0.6);
+  color: var(--text-muted);
 }
 
 .summaryValue {
   margin: 4px 0 0;
   font-size: 14px;
   font-weight: 600;
-  color: #e86a33;
+  color: var(--primary);
 }
 
 .insightsCard {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--card);
   padding-bottom: 14px;
 }
 
@@ -265,27 +270,28 @@
   margin: 8px 0 0;
   padding-left: 16px;
   line-height: 1.6;
-  color: rgba(79, 42, 24, 0.8);
+  color: var(--text-muted);
 }
 
 .addEntryButton {
-  bottom: 120px;
+  /* position: fixed; */
+  bottom: 28px;
   right: 24px;
-  background: #e86a33;
+  background: var(--gradient-accent);
   border: none;
   border-radius: 22px;
-  padding: 10px 18px;
+  padding: 12px 24px;
   font-size: 13px;
   font-weight: 600;
-  color: white;
-  box-shadow: 0 12px 24px rgba(232, 106, 51, 0.3);
+  color: var(--card);
+  box-shadow: var(--card-shadow-strong);
   cursor: pointer;
 }
 
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--backdrop);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,15 +300,16 @@
 }
 
 .modal {
-  background: white;
+  background: var(--card);
   border-radius: 24px;
   width: 100%;
   max-width: 360px;
   padding: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--modal-shadow);
   display: flex;
   flex-direction: column;
   gap: 14px;
+  border: 1px solid var(--border-soft);
 }
 
 .modalHeader {
@@ -310,7 +317,7 @@
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  color: #e86a33;
+  color: var(--primary);
 }
 
 .modalClose {
@@ -319,6 +326,7 @@
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
+  color: var(--text);
 }
 
 .modalSection {
@@ -330,7 +338,7 @@
 .modalLabel {
   margin: 0;
   font-size: 12px;
-  color: rgba(79, 42, 24, 0.65);
+  color: var(--text-muted);
 }
 
 .moodRow,
@@ -342,63 +350,57 @@
 
 .modalMood,
 .symptomChip {
-  border: 1px solid rgba(232, 106, 51, 0.3);
   border-radius: 18px;
-  background: #fff8f4;
+  background: var(--soft);
   padding: 6px 14px;
+  border: 1px solid var(--border-soft);
   cursor: pointer;
   font-size: 14px;
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .modalMoodSelected,
 .symptomSelected {
-  border-color: #e86a33;
-  background: #ffe3d1;
+  border-color: var(--primary);
+  background: var(--gradient-accent);
+  color: var(--card);
+  box-shadow: var(--card-shadow);
+  transform: scale(1.02);
 }
 
 .modalTextarea {
   border-radius: 16px;
-  border: 1px solid rgba(232, 106, 51, 0.3);
+  border: 1px solid var(--border-soft);
   padding: 10px;
   font-family: inherit;
   resize: vertical;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
 }
 
 .modalSave {
   margin-top: 4px;
-  background: #e86a33;
-  color: white;
+  background: var(--gradient-accent);
+  color: var(--card);
   border: none;
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: var(--card-shadow-strong);
 }
 
 .bottomNav {
-  /* position: fixed; */
-  /* bottom: 14px;
-  left: 50%;
-  transform: translate(-46%,10%);
-  width: min(409px, 65%);
-  margin: 0 auto;
-  padding: 2px 24px 1px;
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: 32px 32px 0 0;
   display: flex;
   justify-content: space-between;
-  gap: 1px;
-  box-shadow: 0 -14px 30px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(232, 106, 51, 0.08);
-  z-index: 20; */
-  /* max-height: 50px; */
-
-  display: flex;
-  justify-content: space-between;
-  background: white;
+  background: var(--card);
   border-radius: 40px;
   padding: 10px 12px;
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-soft);
 }
 
 .navButton {
@@ -412,12 +414,12 @@
   padding: 1px;
   cursor: pointer;
   border-radius: 16px;
-  color: rgba(79, 42, 24, 0.6);
+  color: var(--text-muted);
   transform: translateY(-10px);
 }
 
 .navButton:focus-visible {
-  outline: 2px solid rgba(232, 106, 51, 0.6);
+  outline: 2px solid var(--primary-light);
   outline-offset: 2px;
 }
 
@@ -431,24 +433,26 @@
 }
 
 .navIconInactive {
-  color: #b7b7b7;
+  color: var(--text-muted);
 }
 
 .navIconActive {
-  background: #ffe3d1;
-  color: #e86a33;
+  background: var(--soft);
+  color: var(--primary);
 }
 
 .navLabel {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(79, 42, 24, 0.65);
-}
-
-.navActive .navLabel {
-  color: #4f2a18;
+  color: var(--text-muted);
 }
 
 .navActive {
-  color: #e86a33;
+  background: var(--gradient-accent);
+  color: var(--card);
+  box-shadow: var(--card-shadow);
+}
+
+.navActive .navLabel {
+  color: var(--card);
 }
