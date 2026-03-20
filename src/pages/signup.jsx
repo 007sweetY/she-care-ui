@@ -46,7 +46,7 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`page ${styles.container}`}>
       {/* Top-right leaf */}
       <img src={leafImg} className={styles.leafTopRight} alt="leaf" />
 

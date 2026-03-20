@@ -32,7 +32,7 @@ function VerifyOtp() {
   };
 
   return (
-    <div className={styles.otpContainer}>
+    <div className={`page ${styles.otpContainer}`}>
       {/* DECORATIVE LEAVES */}
       <img src={leafImg} alt="leaf" className={styles.leafTopRight} />
       <img src={leafImg} alt="leaf" className={styles.leafMidLeft} />

@@ -12,7 +12,7 @@ const Password = () => {
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <div className={styles.container}>
+    <div className={`page ${styles.container}`}>
       {/* Top indicators */}
       <div className={styles.dots}>
         <span className={styles.active}></span>

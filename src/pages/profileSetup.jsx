@@ -61,7 +61,7 @@ export default function ProfileSetup() {
   };
 
   return (
-    <div className={styles.screen}>
+    <div className={`page ${styles.screen}`}>
       <div className={styles.content}>
         <section className={styles.topSection}>
           <img src={leafImage} alt="" className={styles.headerLeaf} />

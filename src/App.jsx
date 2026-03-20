@@ -14,25 +14,27 @@ import VerifyOtp from "./pages/verifyOtp";
 function App() {
   return (
     <div className="app-shell">
-      <BrowserRouter>
-        <Routes>
-          {/* Redirect root to signup */}
-          <Route path="/" element={<Navigate to="/signup" />} />
+      <div className="app-frame">
+        <BrowserRouter>
+          <Routes>
+            {/* Redirect root to signup */}
+            <Route path="/" element={<Navigate to="/signup" />} />
 
-          {/* Authentication + onboarding stack */}
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/verify-otp" element={<VerifyOtp />} />
-          <Route path="/createPassword" element={<CreatePassword/>} />
-          <Route path="/profile-setup" element={<ProfileSetup />} />
+            {/* Authentication + onboarding stack */}
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/verify-otp" element={<VerifyOtp />} />
+            <Route path="/createPassword" element={<CreatePassword />} />
+            <Route path="/profile-setup" element={<ProfileSetup />} />
 
-          {/* Core app screens */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/cycle" element={<Cycle />} />
-          <Route path="/symptoms" element={<SymptomsPage />} />
-          <Route path="/diet-plan" element={<DietPlanPage />} />
-        </Routes>
-      </BrowserRouter>
+            {/* Core app screens */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/cycle" element={<Cycle />} />
+            <Route path="/symptoms" element={<SymptomsPage />} />
+            <Route path="/diet-plan" element={<DietPlanPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }

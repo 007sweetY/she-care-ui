@@ -4,8 +4,8 @@
   --secondary: #6C5CE7;
   --bg: #FFF5F7;
   --card: #FFFFFF;
-  --text: #2D3436;
-  --text-secondary: #636E72;
+  --text: #1E1E2F;
+  --text-secondary: #6E6E8D;
   --primary-rgb: 255, 107, 129;
   --secondary-rgb: 108, 92, 231;
   --text-rgb: 45, 52, 54;
@@ -18,6 +18,8 @@
   --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.08);
   --chip-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.18);
   --outer-shadow: 0 25px 60px rgba(var(--secondary-rgb), 0.15);
+  --soft: #EDEBFF;
+  --glass-light: rgba(255, 255, 255, 0.95);
   --selection-outline: 0 0 0 4px rgba(var(--primary-rgb), 0.25);
   --text-muted: rgba(var(--text-rgb), 0.6);
   --backdrop: rgba(0, 0, 0, 0.35);
@@ -25,4 +27,37 @@
   --white-fade: rgba(255, 255, 255, 0.3);
   --white-soft: rgba(255, 255, 255, 0.4);
   --white-glow: rgba(255, 255, 255, 0.65);
+}
+
+.shecare-page {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.shecare-muted {
+  color: var(--text-secondary);
+}
+
+.shecare-glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(32px);
+}
+
+.shecare-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.shecare-gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.shecare-gradient-soft {
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.35), rgba(108, 92, 231, 0.35));
+}
+
+.shecare-gradient-border {
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.7), rgba(108, 92, 231, 0.7));
 }

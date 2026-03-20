@@ -37,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`page ${styles.container}`}>
 
       {/* Top indicators */}
       <div className={styles.dots}>

@@ -1,0 +1,346 @@
+.pageContainer {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.floatingHalo {
+  position: absolute;
+  inset: -25%;
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.4), rgba(108, 92, 231, 0.35));
+  filter: blur(140px);
+  opacity: 0.65;
+  animation: floatPulse 12s ease-in-out infinite alternate;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.topStatsStrip {
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.statCard {
+  min-width: 210px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
+  padding: 1rem;
+  flex: 0 0 auto;
+}
+
+.statTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.statDetail {
+  margin-top: 0.35rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.statSubtitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+.liveLabel {
+  font-size: 0.65rem;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.sectionHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.heroTitle {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.statBarWrapper {
+  margin-top: 0.75rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--soft);
+}
+
+.statBar {
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.ring {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+.ringBadge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 15px 35px rgba(255, 107, 129, 0.3);
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.glassCard {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(36px);
+  border-radius: 28px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12);
+}
+
+.sectionLabelWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.sectionHint {
+  font-size: 0.75rem;
+  border-radius: 899px;
+  padding: 2px 10px;
+  width: fit-content;
+  font-weight: 600;
+  color: white;
+  margin-right: 20px;
+}
+
+.metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.metricCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.metricInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metricValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.metricDescription {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.metricIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  color: white;
+  box-shadow: 0 15px 40px rgba(255, 107, 129, 0.4);
+}
+
+.meals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.mealCard {
+  border-radius: 24px;
+  padding: 1.15rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.mealCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.16);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.mealHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mealTitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.mealSwap {
+  font-size: 0.45rem;
+  border-radius: 899px;
+  padding: 1px 8px;
+  width: fit-content;
+  font-weight: 400;
+  color: white;
+  margin-top: 1px;
+}
+
+.mealName {
+  margin-top: 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.mealDetail {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.weeklyStrip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+}
+
+.weekItem {
+  min-width: 140px;
+  border-radius: 22px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.weekDay {
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.weekFocus {
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+.progressPanel {
+  border-radius: 15px;
+  padding: 0.13rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 49px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.70rem;
+}
+
+.progressCircle {
+  position: relative;
+  width: 90%;
+  padding-top: 85%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.progressInner {
+  position: absolute;
+  inset: 24%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.progressFooter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.momentumBadge {
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.2), rgba(108, 92, 231, 0.2));
+  color: var(--text);
+}
+
+@keyframes floatPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
