@@ -1,8 +1,10 @@
 ﻿import { useState } from "react";
 import styles from "./symptoms.module.css";
 
+// Quick set of mood emojis used in the selector grid.
 const MOODS = ["😄", "😐", "😢", "😡", "😴", "😰"];
 
+// Structured symptom categories with label + emoji for each chip button.
 const SYMPTOM_CATEGORIES = [
   {
     title: "💢 Physical",
@@ -36,6 +38,7 @@ const SYMPTOM_CATEGORIES = [
 // const FLOW_OPTIONS = ["🩸 None", "🩸 Light", "🩸 Medium", "🩸 Heavy"];
 const FLOW_OPTIONS = ["None", "Light", "Medium", "Heavy"];
 
+// Grid of mood buttons used across the log screen.
 const MoodSelector = ({ selectedMood, onSelect }) => (
   <div className={styles.moodGrid}>
     {MOODS.map((mood, index) => (
@@ -53,6 +56,7 @@ const MoodSelector = ({ selectedMood, onSelect }) => (
   </div>
 );
 
+// Chip groups representing the symptom categories.
 const SymptomChips = ({ categories, selectedSymptoms, onToggle }) => (
   <div className={styles.categoriesWrapper}>
     {categories.map(({ title, items }) => (
@@ -79,6 +83,8 @@ const SymptomChips = ({ categories, selectedSymptoms, onToggle }) => (
   </div>
 );
 
+// Presents the flow options as a segmented button grid.
+// Simple segmented control for flow intensity.
 const FlowSelector = ({ selectedFlow, onChange }) => (
   <div className={styles.flowGrid}>
     {FLOW_OPTIONS.map((option) => (
@@ -95,6 +101,7 @@ const FlowSelector = ({ selectedFlow, onChange }) => (
   </div>
 );
 
+// Main symptoms entry page.
 const SymptomsPage = () => {
   const [mood, setMood] = useState(MOODS[0]);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
@@ -102,6 +109,7 @@ const SymptomsPage = () => {
   const [painLevel, setPainLevel] = useState(3);
   const [notes, setNotes] = useState("");
 
+  // Converts the slider value into a relatable emoji for the pain label.
   const getPainEmoji = (level) => {
     if (level <= 2) return "🙂";
     if (level <= 4) return "😌";
@@ -110,8 +118,10 @@ const SymptomsPage = () => {
     return "😫";
   };
 
+  // Cache the current pain emoji so the handle + label stay in sync.
   const currentPainEmoji = getPainEmoji(painLevel);
 
+  // Toggle a symptom selection on/off.
   const toggleSymptom = (symptom) => {
     setSelectedSymptoms((prev) =>
       prev.includes(symptom)
@@ -162,12 +172,14 @@ const SymptomsPage = () => {
 
         {/* PAIN */}
         <section className={styles.card}>
+          {/* Pain summary row: emoji + numeric value. */}
           <div className={styles.painHeader}>
             <span>
               {currentPainEmoji} Pain Level
             </span>
             <span>{painLevel}</span>
           </div>
+          {/* Custom slider layout with floating emoji indicator. */}
           <div className={styles.painSliderWrapper}>
             <span
               className={styles.painEmoji}

@@ -22,6 +22,7 @@ const features = [
 ];
 
 export default function ProfileSetup() {
+  // Capture the profile inputs before sending them to the service.
   const [formData, setFormData] = useState({
     age: "",
     height: "",
@@ -30,6 +31,7 @@ export default function ProfileSetup() {
     healthGoal: 1
   });
 
+  // Mirror field updates into the local form state.
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -38,6 +40,7 @@ export default function ProfileSetup() {
     }));
   };
 
+  // Submit the profile data so backend can personalize the journey.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

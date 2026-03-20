@@ -12,6 +12,8 @@
   margin: 0 auto;
 }
 
+/* Full-screen gradient backdrop tailored to the cycle experience. */
+
 .leafTopLeft,
 .leafTopRight {
   position: absolute;
@@ -59,6 +61,8 @@
   position: relative;
 }
 
+/* Shared card styling reused for prediction/calendar/details panels. */
+
 .cardTitle {
   margin: 0;
   font-size: 16px;
@@ -70,6 +74,8 @@
   border: 1px solid var(--border-medium);
   background: var(--soft);
 }
+
+/* Prediction banner summarizing upcoming dates at a glance. */
 
 .predictionHeader {
   display: flex;
@@ -114,6 +120,8 @@
 .calendarCard {
   padding-bottom: 14px;
 }
+
+/* Calendar card houses the month grid and hydration reminder. */
 
 .calendarHeader {
   display: flex;

@@ -6,6 +6,8 @@
   overflow: hidden;
 }
 
+/* Framing gradient card that hosts the login flow. */
+
 /* Progress dots */
 .dots {
   display: flex;

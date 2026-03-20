@@ -2,11 +2,13 @@ import { useMemo, useState } from "react";
 import leafImg from "../assets/leaf.png";
 import styles from "./cycle.module.css";
 
+// Cycle metadata used to compute phases and calendar color coding.
 const PERIOD_DAYS = [12, 13, 14, 15, 16];
 const FERTILE_DAYS = [6, 7, 8, 9, 10];
 const OVULATION_DAY = 8;
 const WEEK_HEADERS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MOOD_OPTIONS = ["😀", "😊", "😌", "😕", "😴", "😄"];
+// Mood & symptom choices surfaced in the modal picker.
+const MOOD_OPTIONS = ["ðŸ˜€", "ðŸ˜Š", "ðŸ˜Œ", "ðŸ˜•", "ðŸ˜´", "ðŸ˜„"];
 const SYMPTOM_OPTIONS = ["Cramps", "Bloating", "Fatigue", "Headache", "Backache"];
 const NAV_ITEMS = [
   { label: "Home", icon: "🏠" },
@@ -15,6 +17,7 @@ const NAV_ITEMS = [
   { label: "Profile", icon: "👤" },
 ];
 
+// Compute descriptive labels that explain the selected day.
 const getPhaseLabel = (day) => {
   if (PERIOD_DAYS.includes(day)) return "Period Phase 🔴";
   if (day === OVULATION_DAY) return "Ovulation Phase 🟣";
@@ -22,6 +25,7 @@ const getPhaseLabel = (day) => {
   return "Luteal Phase";
 };
 
+// Map phase names to mood cues shown on the details card.
 const getMoodLabel = (phase) => {
   if (phase.includes("Period")) return "😊 Happy";
   if (phase.includes("Ovulation")) return "😄 Energized";
@@ -29,6 +33,7 @@ const getMoodLabel = (phase) => {
   return "🙂 Balanced";
 };
 
+// Provide quick symptom hints for the given phase.
 const getSymptomsLabel = (phase) => {
   if (phase.includes("Period")) return "Cramps, Fatigue";
   if (phase.includes("Ovulation")) return "Twinges, Tenderness";
@@ -37,12 +42,14 @@ const getSymptomsLabel = (phase) => {
 };
 
 const Cycle = () => {
+  // Track the selected day + modal inputs for the cycle logger.
   const [selectedDay, setSelectedDay] = useState(12);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentMood, setCurrentMood] = useState(MOOD_OPTIONS[1]);
   const [currentSymptoms, setCurrentSymptoms] = useState([SYMPTOM_OPTIONS[0]]);
   const [notes, setNotes] = useState("Feeling low energy");
 
+  // Generate a 6-week calendar grid for the selected month once.
   const calendarWeeks = useMemo(() => {
     const year = 2026;
     const month = 2; // March (0-indexed)
@@ -70,6 +77,7 @@ const Cycle = () => {
     return weeks;
   }, []);
 
+  // Allow the modal to double-tap symptoms on/off.
   const toggleSymptom = (symptom) => {
     setCurrentSymptoms((prev) =>
       prev.includes(symptom) ? prev.filter((item) => item !== symptom) : [...prev, symptom]
@@ -212,6 +220,7 @@ const Cycle = () => {
         + Add Entry
       </button>
 
+      {/* Modal overlay for logging mood/symptoms. */}
       {modalOpen && (
         <div className={styles.modalBackdrop} onClick={() => setModalOpen(false)}>
           <div className={styles.modal} onClick={(event) => event.stopPropagation()}>

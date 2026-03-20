@@ -8,6 +8,8 @@
   font-family: "Poppins", "Inter", sans-serif;
 }
 
+/* Gradient canvas that centers the onboarding card. */
+
 .content {
   width: min(420px, 80%);
   display: flex;

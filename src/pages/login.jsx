@@ -5,6 +5,7 @@ import leafImg from "../assets/leaf.png";
 import { loginService } from "../services/signupService";
 import styles from "./login.module.css";
 
+// Simple login form that calls the shared auth service.
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
     password: ""
   });
 
+  // Keep the local form data in sync with the inputs.
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -20,6 +22,7 @@ const Login = () => {
     }));
   };
 
+  // Async submit that posts credentials to the login service.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

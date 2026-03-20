@@ -1,3 +1,4 @@
+/* Base page styles shared across the shell. */
 body {
   margin: 0;
   background: var(--bg);
@@ -5,6 +6,7 @@ body {
   color: var(--text);
 }
 
+/* Center the app inside a mobile-frame shell. */
 .app-wrapper,
 .app-shell {
   max-width: 420px;
@@ -15,6 +17,7 @@ body {
 }
 
 .page {
+  /* Ensure each page fills the simulated screen height. */
   min-height: 100vh;
   background: var(--bg);
 }

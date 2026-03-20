@@ -13,6 +13,7 @@ function VerifyOtp() {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const inputsRef = useRef([]);
 
+  // Collect the digit, move focus forward, and keep OTP state synced.
   const handleChange = (e, index) => {
     const value = e.target.value.replace(/\D/, "");
     if (!value) return;
@@ -24,6 +25,7 @@ function VerifyOtp() {
     if (index < 3) inputsRef.current[index + 1]?.focus();
   };
 
+  // Navigate once a full 4-digit code is entered.
   const handleVerify = () => {
     if (otp.join("").length < 4) return;
     navigate(flow === "forgot" ? "/reset-password" : "/profile-setup");

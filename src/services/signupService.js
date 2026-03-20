@@ -1,5 +1,6 @@
 import api from "../api/axois.jsx";
 
+// Handles both signup and token persistence for the user.
 export default async function signupService(name, email, password) {
   try {
     const payload = {
@@ -10,7 +11,7 @@ export default async function signupService(name, email, password) {
 
     const response = await api.post("/User/signup", payload);
 
-    // Store the JWT token if present
+    // Store the JWT token if present so later calls stay authenticated
     if (response.data.jwtToken) {
       localStorage.setItem("token", response.data.jwtToken);
     }
@@ -31,7 +32,7 @@ export async function loginService(email, password) {
 
     const response = await api.post("/User/login", payload);
 
-    // Assuming the response contains a jwtToken
+    // Assuming the response contains a jwtToken so we can reuse credentials
     if (response.data.jwtToken) {
       localStorage.setItem("token", response.data.jwtToken);
     }

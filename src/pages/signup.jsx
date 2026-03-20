@@ -7,16 +7,19 @@ import signupService from "../services/signupService";
 
 const Signup = () => {
   const navigate = useNavigate();
+  // Track the form fields plus submission/error states.
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  // Flag to show errors when the confirmation diverges.
   const passwordsMismatch = confirmPassword && password !== confirmPassword;
 
   const arePasswordsMatching = () => password === confirmPassword;
 
+  // Guarded signup call that pushes the user to OTP after success.
   const handleSignup = async () => {
     setErrorMessage("");
 

@@ -3,13 +3,12 @@ import axios from "axios";
 
 const baseURL = import.meta.env.VITE_API_ENDPOINT ?? "/api";
 
+// Shared axios instance that injects JWT, handles unauthorized cases.
 const api = axios.create({
   baseURL
 });
 
-// ================================
-//  REQUEST INTERCEPTOR FOR JWT
-// ================================
+// Inject stored token into every request if we have one.
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -21,9 +20,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ================================
-//  RESPONSE INTERCEPTOR
-// ================================
+// Trap responses so we can clean up tokens when unauthorized happens.
 api.interceptors.response.use(
   (response) => response,
   (error) => {

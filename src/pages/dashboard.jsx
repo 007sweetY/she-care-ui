@@ -3,6 +3,7 @@ import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
 import styles from "./dashboard.module.css";
 
+// Static data that drives the mood grid, feature cards, and nav bar.
 const feelings = [
   { emoji: "😀", title: "Great" },
   { emoji: "😊", title: "Happy" },
@@ -26,11 +27,13 @@ const navItems = [
 ];
 
 const Dashboard = () => {
+  // Keep track of which mood button is highlighted.
   const [selectedMood, setSelectedMood] = useState("Great");
 
   return (
-    <div className={`page ${styles.pageWrapper}`}>
-      <div className={styles.welcomeCard}>
+      <div className={`page ${styles.pageWrapper}`}>
+        {/* Top welcome banner + avatar */}
+        <div className={styles.welcomeCard}>
         <img src={leafImg} className={styles.headerLeafTop} alt="decorative leaf" />
         <img src={leafImg} className={styles.headerLeafBottom} alt="decorative leaf" />
         <div>
@@ -45,6 +48,7 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Period prediction snapshot */}
       <div className={styles.periodCard}>
         <img src={leafImg} className={styles.periodLeaf} alt="decorative leaf" />
         <p className={styles.sectionTitle}>Next Period In</p>
@@ -54,6 +58,7 @@ const Dashboard = () => {
         <p className={styles.cycleDay}>Cycle Day: 12</p>
       </div>
 
+      {/* Mood selector grid */}
       <div className={styles.section}>
         <img src={leafImg} className={styles.sectionLeafMoodLeft} alt="decorative leaf" />
         <img src={leafImg} className={styles.sectionLeafMoodRight} alt="decorative leaf" />
@@ -78,6 +83,7 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Mind & body quick tags */}
       <div className={styles.section}>
         <img src={leafImg} className={styles.sectionLeafMind} alt="decorative leaf" />
         <img src={leafImg} className={styles.sectionLeafMindAlt} alt="decorative leaf" />
@@ -91,6 +97,7 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Feature shortcut grid */}
       <div className={styles.actionsGridWrapper}>
         <img src={leafImg} className={styles.sectionLeafActions} alt="decorative leaf" />
         <div className={styles.actionsGrid}>
@@ -104,6 +111,7 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Progress card showing hydration */}
       <div className={styles.progressCard}>
         <img src={leafImg} className={styles.sectionLeafProgress} alt="decorative leaf" />
         <div className={styles.progressHeader}>
@@ -116,6 +124,7 @@ const Dashboard = () => {
         <p className={styles.progressValue}>1.5L / 2L</p>
       </div>
 
+      {/* CTA inviting a new entry */}
       <div className={styles.ctaWrapper}>
         <img src={leafImg} className={styles.sectionLeafCta} alt="decorative leaf" />
         <button className={styles.ctaButton}>+ Add Entry</button>
@@ -124,6 +133,7 @@ const Dashboard = () => {
 
       <img src={leafImg} className={styles.sectionLeafNav} alt="decorative leaf" />
 
+      {/* Bottom navigation bar */}
       <nav className={styles.bottomNav}>
         {navItems.map((item) => (
           <button
