@@ -6,6 +6,7 @@ import Cycle from "./pages/cycle";
 import Login from "./pages/login";
 import ProfileSetup from "./pages/profileSetup";
 import Signup from "./pages/signup";
+import DietPlanPage from "./pages/dietPlan";
 import SymptomsPage from "./pages/symptoms";
 import VerifyOtp from "./pages/verifyOtp";
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cycle" element={<Cycle />} />
           <Route path="/symptoms" element={<SymptomsPage />} />
+          <Route path="/diet-plan" element={<DietPlanPage />} />
         </Routes>
       </BrowserRouter>
     </div>
