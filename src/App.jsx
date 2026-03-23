@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./index.css";
 import CreatePassword from "./pages/createPassword";
 import Dashboard from "./pages/dashboard";
+import YogaPage from "./pages/yoga";
 import Cycle from "./pages/cycle";
 import Login from "./pages/login";
 import ProfileSetup from "./pages/profileSetup";
@@ -29,6 +30,7 @@ function App() {
 
             {/* Core app screens */}
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/yoga" element={<YogaPage />} />
             <Route path="/cycle" element={<Cycle />} />
             <Route path="/symptoms" element={<SymptomsPage />} />
             <Route path="/diet-plan" element={<DietPlanPage />} />
