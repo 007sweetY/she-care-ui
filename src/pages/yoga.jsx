@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./yoga.module.css";
 
 const progressStats = [
@@ -172,6 +172,19 @@ const routineBlocks = [
 const voiceCues = ["Inhale slowly…", "Hold…", "Exhale…", "Flow into the next pose…"];
 const unlockOptions = ["Audio breathing cues", "Pose transitions", "Guided relaxation"];
 
+const parseDurationSeconds = (duration) => {
+  const match = duration.match(/(\d+)/);
+  return match ? Number(match[1]) * 60 : 900;
+};
+
+const formatClock = (seconds) => {
+  const minutes = Math.floor(seconds / 60)
+    .toString()
+    .padStart(2, "0");
+  const secs = (seconds % 60).toString().padStart(2, "0");
+  return `${minutes}:${secs}`;
+};
+
 const YogaHeader = ({ durationBadge, subtitle, onStart }) => (
   <div className={styles.heroCard}>
     <p className={styles.heroLabel}>SheCare</p>
@@ -224,7 +237,7 @@ const CategoryChips = ({ categories, active, onSelect }) => (
   </div>
 );
 
-const SessionCard = ({ session }) => (
+const SessionCard = ({ session, onStart, isActive, remaining }) => (
   <div className={styles.sessionCard}>
     <div className={styles.sessionHeader}>
       <span className={styles.sessionIllustration}>{session.illustration}</span>
@@ -235,8 +248,8 @@ const SessionCard = ({ session }) => (
     </div>
     <div className={styles.sessionFooter}>
       <span>{session.duration}</span>
-      <button className={styles.sessionStart} type="button">
-        Start
+      <button className={styles.sessionStart} type="button" onClick={() => onStart(session)} disabled={isActive && remaining > 0}>
+        {isActive && remaining > 0 ? formatClock(remaining) : "Start"}
       </button>
     </div>
   </div>
@@ -335,6 +348,40 @@ const CyclePhaseCard = ({ phase, isActive, onSelect }) => {
 function YogaPage() {
   const [activeCategory, setActiveCategory] = useState("Hormone Balance");
   const [activePhase, setActivePhase] = useState(cyclePhases[1]);
+  const [activeSession, setActiveSession] = useState(null);
+  const [remainingSeconds, setRemainingSeconds] = useState(0);
+  const [completionMessage, setCompletionMessage] = useState("");
+
+  useEffect(() => {
+    if (!activeSession) {
+      setRemainingSeconds(0);
+      return undefined;
+    }
+
+    const timer = setInterval(() => {
+      setRemainingSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setActiveSession(null);
+          if (activeSession) {
+            setCompletionMessage(`✨ ${activeSession.title} completed!`);
+          }
+          return 0;
+        }
+
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [activeSession]);
+
+  const handleStartSession = (session) => {
+    const seconds = parseDurationSeconds(session.duration);
+    setRemainingSeconds(seconds);
+    setCompletionMessage("");
+    setActiveSession(session);
+  };
 
   return (
     <div className={styles.pageShell}>
@@ -346,7 +393,6 @@ function YogaPage() {
             /** placeholder */
           }}
         />
-
         <section className={styles.cycleSection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Cycle-Synced Yoga Engine</h2>
@@ -407,9 +453,16 @@ function YogaPage() {
           </div>
           <div className={styles.sessionGrid}>
             {recommendedSessions.map((session) => (
-              <SessionCard key={session.title} session={session} />
+              <SessionCard
+                key={session.title}
+                session={session}
+                onStart={handleStartSession}
+                isActive={activeSession?.title === session.title}
+                remaining={activeSession?.title === session.title ? remainingSeconds : 0}
+              />
             ))}
           </div>
+          {completionMessage && <p className={styles.completionBanner}>{completionMessage}</p>}
         </section>
 
         <section className={styles.section}>
