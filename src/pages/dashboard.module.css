@@ -280,6 +280,9 @@
   font-size: 14px;
   box-shadow: var(--card-shadow-strong);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+  text-align: left;
 }
 
 .actionCard:hover {

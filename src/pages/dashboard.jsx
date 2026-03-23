@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
 import styles from "./dashboard.module.css";
@@ -13,10 +14,10 @@ const feelings = [
 ];
 
 const featureCards = [
-  { icon: "🌙", title: "Cycle Tracker", subtitle: "Track your cycle" },
-  { icon: "✨", title: "Symptoms", subtitle: "Log what matters" },
-  { icon: "🍓", title: "Diet Plan", subtitle: "Nutrition nudges" },
-  { icon: "🧘", title: "Yoga", subtitle: "Mood-balancing flows" },
+  { icon: "🌙", title: "Cycle Tracker", subtitle: "Track your cycle", path: "/cycle" },
+  { icon: "✨", title: "Symptoms", subtitle: "Log what matters", path: "/symptoms" },
+  { icon: "🍓", title: "Diet Plan", subtitle: "Nutrition nudges", path: "/diet-plan" },
+  { icon: "🧘", title: "Yoga", subtitle: "Mood-balancing flows", path: "/yoga" },
 ];
 
 const navItems = [
@@ -29,6 +30,7 @@ const navItems = [
 const Dashboard = () => {
   // Keep track of which mood button is highlighted.
   const [selectedMood, setSelectedMood] = useState("Great");
+  const navigate = useNavigate();
 
   return (
       <div className={`page ${styles.pageWrapper}`}>
@@ -102,11 +104,16 @@ const Dashboard = () => {
         <img src={leafImg} className={styles.sectionLeafActions} alt="decorative leaf" />
         <div className={styles.actionsGrid}>
           {featureCards.map((card) => (
-            <div key={card.title} className={styles.actionCard}>
+            <button
+              key={card.title}
+              type="button"
+              className={styles.actionCard}
+              onClick={() => navigate(card.path)}
+            >
               <div className={styles.actionIcon}>{card.icon}</div>
               <p className={styles.actionTitle}>{card.title}</p>
               <p className={styles.actionSubtitle}>{card.subtitle}</p>
-            </div>
+            </button>
           ))}
         </div>
       </div>
