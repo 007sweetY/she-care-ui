@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background: #eef6f5;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--soft) 60%, var(--gradient-accent) 100%);
   font-family: "Poppins", sans-serif;
   position: relative;
   overflow: hidden;
@@ -19,11 +19,11 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f0c5a8;
+  background: rgba(var(--primary-rgb), 0.35);
 }
 
 .dots .active {
-  background: #ff914d;
+  background: var(--primary);
 }
 
 /* Top leaf */
@@ -47,7 +47,7 @@
 
 .header h1 {
   font-size: 36px;
-  color: #ff914d;
+  color: var(--primary);
   font-weight: 700;
   margin-top: 0;
 }
@@ -68,7 +68,7 @@
 /* Brown card */
 .card {
   margin-top: -30px;     /* 🔑 pull card upward */
-  background: #c35d2d;
+  background: var(--gradient-accent);
   border-radius: 32px 32px 0 0;
   padding: 90px 24px 30px; /* extra top padding for overlap */
   color: #fff;
@@ -105,7 +105,7 @@ input {
   border-radius: 22px;
   border: none;
   outline: none;
-  background: #f4c4a6;
+  background: var(--soft);
   font-size: 14px;
 }
 
@@ -113,7 +113,7 @@ input {
 .ctaBar {
 .ctaBar {
   margin-top: 26px;
-  background: #ff914d;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.3), rgba(var(--secondary-rgb), 0.3));
   border-radius: 30px;
   padding: 8px;                 /* reduced padding */
   display: flex;

@@ -3,7 +3,7 @@
 ========================= */
 .otpContainer {
   min-height: 100vh;
-  background-color: #eef4f2;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--soft) 40%, var(--gradient-accent) 100%);
   text-align: center;
   padding: 14px 16px 32px;
   font-family: "Poppins", sans-serif;
@@ -14,7 +14,7 @@
 ========================= */
 .verifyText {
   font-size: 23px;
-  color: #444;
+  color: var(--text-secondary);
   margin-bottom: 8px;
   font-weight: bold;
   font-family: 'More-Sugar';
@@ -23,15 +23,15 @@
 .brand {
   font-size: 39px;
   font-weight: bold;
-  color: #ff8a50;
+  color: var(--primary);
   margin-bottom: 89px;
   font-family: 'More-Sugar';
 }
 
 .otpCard {
   position: relative; /* REQUIRED for girl positioning */
-  background-color: #c4632f;
-  color: #fff;
+  background-color: var(--card);
+  color: var(--text);
   border-radius: 28px 28px 0 0;
   padding: 72px 20px 28px;
   width: 90%;
@@ -101,7 +101,7 @@
   height: 44px;
   border-radius: 14px;
   border: none;
-  background-color: #f5c6a8;
+  background-color: var(--soft);
   text-align: center;
   font-size: 18px;
   outline: none;
@@ -110,7 +110,7 @@
 .resend {
   background: none;
   border: none;
-  color: #ffe5d6;
+  color: var(--text-secondary);
   font-size: 17px;
   margin-bottom: 12px;
   cursor: pointer;
@@ -121,8 +121,8 @@
   height: 52px;
   border-radius: 20px;
   border: 2.2px solid #fff;
-  background: transparent;
-  color: #fff;
+  background: var(--gradient-accent);
+  color: var(--card);
   font-size: 19px;
   font-weight: bold;
   cursor: pointer;

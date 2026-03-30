@@ -11,7 +11,7 @@
 
 .container {
   min-height: 100vh;
-  background: #eef6f5;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--soft) 50%, var(--gradient-accent) 100%);
   font-family: "Poppins", sans-serif;
   overflow: hidden;
   position: relative;
@@ -58,7 +58,7 @@
 
 .header h1 {
   font-size: 45px;
-  color: #ff914d;
+  color: var(--primary);
   font-weight: 1000;
   font-style: italic;
   font-family: 'More-Sugar';
@@ -84,7 +84,7 @@
 /* Brown section (connected, NOT floating) */
 .card {
   margin-top: -40px; /* THIS removes the white gap */
-  background: #c35d2d;
+  background: var(--gradient-accent);
   padding: 70px 24px 30px;
   border-radius: 32px 32px 0 0;
   color: #fff;
@@ -108,7 +108,7 @@ input {
   border-radius: 22px;
   border: none;
   outline: none;
-  background: #f4c4a6;
+  background: var(--soft);
   font-size: 14px;
 }
 
@@ -124,7 +124,7 @@ input {
   margin-top: 6px;
   margin-bottom: 0;
   text-align: center;
-  color: #ffe9d7;
+  color: rgba(var(--primary-rgb), 0.9);
 }
 
 
@@ -134,7 +134,7 @@ button {
   margin-top: 22px;
   padding: 14px;
   border-radius: 26px;
-  background: #b35326;
+  background: var(--primary);
   border: none;
   color: #fff;
   font-size: 15px;

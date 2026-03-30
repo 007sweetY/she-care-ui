@@ -1,6 +1,7 @@
 /* Centralized theme tokens for colors, spacing, and shadows. */
 :root {
   --primary: #FF6B81;
+  --primary-light: #FFA1B5;
   --secondary: #6C5CE7;
   --bg: #FFF5F7;
   --card: #FFFFFF;
