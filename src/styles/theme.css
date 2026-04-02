@@ -28,6 +28,56 @@
   --white-fade: rgba(255, 255, 255, 0.3);
   --white-soft: rgba(255, 255, 255, 0.4);
   --white-glow: rgba(255, 255, 255, 0.65);
+  --surface-overlay: rgba(255, 255, 255, 0.78);
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --input-border: rgba(var(--primary-rgb), 0.18);
+  --hero-bg: linear-gradient(180deg, var(--bg) 0%, var(--soft) 50%, rgba(var(--primary-rgb), 0.24) 100%);
+  --toggle-bg: rgba(255, 255, 255, 0.82);
+  --toggle-border: rgba(var(--primary-rgb), 0.18);
+  --toggle-thumb: linear-gradient(135deg, var(--primary), var(--secondary));
+  --toggle-label: var(--text);
+}
+
+:root[data-theme="dark"] {
+  --primary: #ff8ca2;
+  --primary-light: #ffb5c5;
+  --secondary: #9e8cff;
+  --bg: #0f1220;
+  --card: #181c2e;
+  --text: #f5f1ff;
+  --text-secondary: #b7b2cf;
+  --primary-rgb: 255, 140, 162;
+  --secondary-rgb: 158, 140, 255;
+  --text-rgb: 245, 241, 255;
+  --gradient-accent: linear-gradient(135deg, #ff7c97, #8374ff);
+  --card-shadow: 0 18px 35px rgba(3, 6, 20, 0.45);
+  --card-shadow-strong: 0 24px 50px rgba(0, 0, 0, 0.5);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.28);
+  --chip-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+  --outer-shadow: 0 28px 65px rgba(0, 0, 0, 0.45);
+  --soft: #232843;
+  --glass-light: rgba(24, 28, 46, 0.88);
+  --selection-outline: 0 0 0 4px rgba(var(--primary-rgb), 0.22);
+  --text-muted: rgba(var(--text-rgb), 0.68);
+  --backdrop: rgba(2, 4, 12, 0.65);
+  --modal-shadow: 0 30px 60px rgba(0, 0, 0, 0.48);
+  --white-fade: rgba(255, 255, 255, 0.14);
+  --white-soft: rgba(255, 255, 255, 0.18);
+  --white-glow: rgba(255, 255, 255, 0.24);
+  --surface-overlay: rgba(20, 24, 40, 0.82);
+  --input-bg: rgba(34, 39, 62, 0.92);
+  --input-border: rgba(255, 255, 255, 0.08);
+  --hero-bg: linear-gradient(180deg, #0f1220 0%, #171c31 48%, #281e43 100%);
+  --toggle-bg: rgba(21, 26, 44, 0.88);
+  --toggle-border: rgba(255, 255, 255, 0.08);
+  --toggle-thumb: linear-gradient(135deg, #ffd46a, #ff8ca2);
+  --toggle-label: #f7f3ff;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 .shecare-page {
@@ -61,4 +111,63 @@
 
 .shecare-gradient-border {
   background: linear-gradient(135deg, rgba(255, 107, 129, 0.7), rgba(108, 92, 231, 0.7));
+}
+
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top, rgba(var(--secondary-rgb), 0.16), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(var(--primary-rgb), 0.18), transparent 30%),
+    var(--bg);
+}
+
+:root[data-theme="dark"] :where(input, textarea, select) {
+  background: var(--input-bg) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--input-border) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+:root[data-theme="dark"] :where(input, textarea, select)::placeholder {
+  color: var(--text-muted) !important;
+}
+
+:root[data-theme="dark"] :where(button) {
+  color: inherit;
+}
+
+:root[data-theme="dark"] :where(
+  [class*="container"],
+  [class*="Container"],
+  [class*="pageWrapper"],
+  [class*="pageContainer"],
+  [class*="pageShell"],
+  [class*="screen"],
+  [class*="otpContainer"],
+  [class*="symptomsRoot"]
+) {
+  background: var(--hero-bg) !important;
+  color: var(--text);
+}
+
+:root[data-theme="dark"] :where(
+  [class*="card"],
+  [class*="Card"],
+  [class*="panel"],
+  [class*="Panel"],
+  [class*="section"],
+  [class*="Section"],
+  [class*="Wrapper"]
+) {
+  border-color: var(--border-soft);
+}
+
+:root[data-theme="dark"] :where(
+  [class*="card"]:not([class*="ctaBar"]):not([class*="actionsGrid"]),
+  [class*="Card"]:not([class*="actionCard"]),
+  [class*="panel"],
+  [class*="Panel"]
+) {
+  background-color: var(--surface-overlay);
+  color: var(--text);
+  backdrop-filter: blur(18px);
 }

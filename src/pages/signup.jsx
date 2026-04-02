@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
@@ -7,20 +7,17 @@ import signupService from "../services/signupService";
 
 const Signup = () => {
   const navigate = useNavigate();
-  // Track the form fields plus submission/error states.
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  // Flag to show errors when the confirmation diverges.
+
   const passwordsMismatch = confirmPassword && password !== confirmPassword;
 
-  const arePasswordsMatching = () => password === confirmPassword;
-
-  // Guarded signup call that pushes the user to OTP after success.
-  const handleSignup = async () => {
+  const handleSignup = async (event) => {
+    event.preventDefault();
     setErrorMessage("");
 
     if (!name || !email || !password || !confirmPassword) {
@@ -28,7 +25,7 @@ const Signup = () => {
       return;
     }
 
-    if (!arePasswordsMatching()) {
+    if (password !== confirmPassword) {
       return;
     }
 
@@ -47,79 +44,117 @@ const Signup = () => {
 
   return (
     <div className={`page ${styles.container}`}>
-      {/* Top-right leaf */}
-      <img src={leafImg} className={styles.leafTopRight} alt="leaf" />
+      <div className={styles.glowTop} aria-hidden="true" />
+      <div className={styles.glowBottom} aria-hidden="true" />
 
-      {/* Header */}
-      <div className={styles.header}>
-        <p className={styles.welcome}>Welcome to</p>
-        <h1>SheCare</h1>
-      </div>
+      <section className={styles.heroSection}>
+        <img src={leafImg} className={styles.leafHero} alt="" aria-hidden="true" />
 
-      {/* Girl illustration (NOT avatar) */}
-      <div className={styles.girlWrapper}>
-        <img src={girlImg} alt="girl" />
-      </div>
+        <div className={styles.heroCopy}>
+          <span className={styles.eyebrow}>Welcome to</span>
+          <h1 className={styles.brand}>SheCare</h1>
+          <p className={styles.subtitle}>
+            A softer, calmer place to track your cycle, build healthy routines,
+            and feel more in control of your care.
+          </p>
+          <div className={styles.heroPills}>
+            <span>Create your account</span>
+            <span>Start your wellness journey</span>
+          </div>
+        </div>
 
-      {/* Brown section */}
-      <div className={styles.card}>
-        {/* Leaf beside "Sign Up" */}
-        <img src={leafImg} className={styles.leafCard} alt="leaf" />
+        <div className={styles.illustrationShell}>
+          <div className={styles.illustrationHalo} aria-hidden="true" />
+          <img src={girlImg} alt="Relaxed woman illustration" className={styles.girlImage} />
+        </div>
+      </section>
 
-        <h2>Sign Up</h2>
+      <section className={styles.formSection}>
+        <div className={styles.card}>
+          <img src={leafImg} className={styles.leafCard} alt="" aria-hidden="true" />
 
-        <label>Name</label>
-        <input
-          type="text"
-          placeholder="Olivia Wilson"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
+          <div className={styles.cardHeader}>
+            <span className={styles.cardKicker}>Create account</span>
+            <h2>Sign up</h2>
+            <p>Join SheCare with a few details and continue to verification.</p>
+          </div>
 
-        <label>Email</label>
-        <input
-          type="email"
-          placeholder="hello@reallygreatsite.com"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
+          <form className={styles.form} onSubmit={handleSignup}>
+            <div className={styles.field}>
+              <label htmlFor="signup-name">Name</label>
+              <input
+                id="signup-name"
+                type="text"
+                placeholder="Olivia Wilson"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </div>
 
-        <label>Password</label>
-        <input
-          type="password"
-          placeholder="******"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
+            <div className={styles.field}>
+              <label htmlFor="signup-email">Email</label>
+              <input
+                id="signup-email"
+                type="email"
+                placeholder="hello@reallygreatsite.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </div>
 
-        <label>Confirm Password</label>
-        <input
-          type="password"
-          placeholder="******"
-          value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-        />
-        {passwordsMismatch && (
-          <p className={styles.error}>Passwords do not match.</p>
-        )}
+            <div className={styles.inputGrid}>
+              <div className={styles.field}>
+                <label htmlFor="signup-password">Password</label>
+                <input
+                  id="signup-password"
+                  type="password"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+              </div>
 
-        {errorMessage && !passwordsMismatch && (
-          <p className={styles.error}>{errorMessage}</p>
-        )}
+              <div className={styles.field}>
+                <label htmlFor="signup-confirm-password">Confirm Password</label>
+                <input
+                  id="signup-confirm-password"
+                  type="password"
+                  placeholder="Confirm password"
+                  value={confirmPassword}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                />
+              </div>
+            </div>
 
-        <button
-          type="button"
-          onClick={handleSignup}
-          disabled={isSubmitting || passwordsMismatch}
-        >
-          {isSubmitting ? "Creating account" : "Continue"}
-        </button>
+            {passwordsMismatch && (
+              <p className={styles.error}>Passwords do not match.</p>
+            )}
 
-        <p className={styles.footer}>
-          Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>Sign in</span>
-        </p>
-      </div>
+            {errorMessage && !passwordsMismatch && (
+              <p className={styles.error}>{errorMessage}</p>
+            )}
+
+            <button
+              className={styles.submitButton}
+              type="submit"
+              disabled={isSubmitting || passwordsMismatch}
+            >
+              {isSubmitting ? "Creating account..." : "Continue"}
+            </button>
+          </form>
+
+          <p className={styles.footer}>
+            Already have an account?{" "}
+            <button
+              type="button"
+              className={styles.linkButton}
+              onClick={() => navigate("/login")}
+            >
+              Sign in
+            </button>
+          </p>
+        </div>
+      </section>
     </div>
   );
 };
