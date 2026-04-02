@@ -1,87 +1,98 @@
-import styles from "./createPassword.module.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import styles from "./signup.module.css";
 
 const Password = () => {
   const navigate = useNavigate();
-
-  // 👁️ eye toggle states
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
     <div className={`page ${styles.container}`}>
-      {/* Top indicators */}
-      <div className={styles.dots}>
-        <span className={styles.active}></span>
-        <span></span>
-        <span></span>
-      </div>
+      <div className={styles.glowTop} aria-hidden="true" />
+      <div className={styles.glowBottom} aria-hidden="true" />
 
-      {/* Top right leaf */}
-      <img src={leafImg} className={styles.leafTop} alt="leaf" />
+      <section className={styles.heroSection}>
+        <img src={leafImg} className={styles.leafHero} alt="" aria-hidden="true" />
 
-      {/* Header */}
-      <div className={styles.header}>
-        <p>Sign in to continue</p>
-        <h1>She Care</h1>
-      </div>
+        <div className={styles.heroCopy}>
+          <span className={styles.eyebrow}>Secure your account</span>
+          <h1 className={styles.brand}>SheCare</h1>
+          <p className={styles.subtitle}>
+            Set a strong password to protect your SheCare journey and keep your data secure.
+          </p>
+          <div className={styles.heroPills}>
+            <span>Strong security</span>
+            <span>One secure login</span>
+          </div>
+        </div>
 
-      {/* Girl illustration */}
-      <div className={styles.girlWrapper}>
-        <img src={girlImg} alt="girl" />
-      </div>
+        <div className={styles.illustrationShell}>
+          <div className={styles.illustrationHalo} aria-hidden="true" />
+          <img src={girlImg} alt="Relaxed woman illustration" className={styles.girlImage} />
+        </div>
+      </section>
 
-      {/* Brown card */}
-      <div className={styles.card}>
-        <img src={leafImg} className={styles.leafCard} alt="leaf" />
+      <section className={styles.formSection}>
+        <div className={styles.card}>
+          <img src={leafImg} className={styles.leafCard} alt="" aria-hidden="true" />
 
-        <h1>Create Password</h1>
+          <div className={styles.cardHeader}>
+            <span className={styles.cardKicker}>Create password</span>
+            <h2>Protect your account</h2>
+            <p>Choose a secure password that meets the SheCare standard.</p>
+          </div>
 
-        {/* New Password */}
-        <label>New Password</label>
-        <div className={styles.passwordWrapper}>
-          <input
-            type={showNew ? "text" : "password"}
-            placeholder="Type New Password here"
-          />
-          <button
-            type="button"
-            className={styles.eyeBtn}
-            onClick={() => setShowNew(!showNew)}
-          >
-            {showNew ? "🙈" : "👁️"}
+          <div className={styles.field}>
+            <label htmlFor="new-password">New Password</label>
+            <div className={styles.passwordWrapper}>
+              <input
+                id="new-password"
+                type={showNew ? "text" : "password"}
+                placeholder="Type new password here"
+              />
+              <button
+                type="button"
+                className={styles.eyeBtn}
+                onClick={() => setShowNew(!showNew)}
+                aria-label={showNew ? "Hide password" : "Show password"}
+              >
+                {showNew ? "🙈" : "👁️"}
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="confirm-password">Confirm Password</label>
+            <div className={styles.passwordWrapper}>
+              <input
+                id="confirm-password"
+                type={showConfirm ? "text" : "password"}
+                placeholder="Type confirm password here"
+              />
+              <button
+                type="button"
+                className={styles.eyeBtn}
+                onClick={() => setShowConfirm(!showConfirm)}
+                aria-label={showConfirm ? "Hide password" : "Show password"}
+              >
+                {showConfirm ? "🙈" : "👁️"}
+              </button>
+            </div>
+          </div>
+
+          <button className={styles.submitButton} type="button">
+            Confirm Password
           </button>
-        </div>
 
-        {/* Confirm Password */}
-        <label>Confirm Password</label>
-        <div className={styles.passwordWrapper}>
-          <input
-            type={showConfirm ? "text" : "password"}
-            placeholder="Type Confirm Password here"
-          />
-          <button
-            type="button"
-            className={styles.eyeBtn}
-            onClick={() => setShowConfirm(!showConfirm)}
-          >
-            {showConfirm ? "🙈" : "👁️"}
-          </button>
+          <p className={styles.footer}>
+            Already have an account?{' '}
+            <button type="button" className={styles.linkButton} onClick={() => navigate("/login")}>Sign in</button>
+          </p>
         </div>
-
-        {/* Bottom CTA bar */}
-        <div className={styles.ctaBar}>
-          <button>Confirm Password</button>
-        </div>
-
-        {/* Footer */}
-        <p className={styles.footer}>
-          <span onClick={() => navigate("/signup")}>Sign in</span>
-        </p>
-      </div>
+      </section>
     </div>
   );
 };
