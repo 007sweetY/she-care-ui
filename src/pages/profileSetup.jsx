@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import girlImage from "../assets/girl.png";
 import leafImage from "../assets/leaf.png";
 import { completeProfile } from "../services/signupService";
@@ -30,6 +31,8 @@ const bloodGroupOptions = [
 ];
 
 export default function ProfileSetup() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     age: "",
     height: "",
@@ -72,6 +75,7 @@ export default function ProfileSetup() {
       const response = await completeProfile(payload);
       console.log("Profile completed:", response);
       setSuccessMessage("Profile setup completed successfully.");
+      navigate("/dashboard");
     } catch (error) {
       const backendMessage =
         error?.response?.data?.message ??
