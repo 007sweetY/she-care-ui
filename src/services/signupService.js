@@ -1,56 +1,52 @@
-import api from "../api/axois.jsx";
+import api from "./api";
 
-// Handles both signup and token persistence for the user.
-export default async function signupService(name, email, password) {
-  try {
-    const payload = {
-      fullName: name,
-      email,
-      PasswordHash: password
-    };
+/* ================= SIGNUP ================= */
 
-    const response = await api.post("/User/signup", payload);
-
-    // Store the JWT token if present so later calls stay authenticated
-    if (response.data.jwtToken) {
-      localStorage.setItem("token", response.data.jwtToken);
-    }
-
-    return response.data;
-  } catch (error) {
-    console.error("Signup service error:", error);
-    throw error;
+export async function signupService(
+  fullName,
+  email,
+  password,
+  confirmPassword
+) {
+  if (password !== confirmPassword) {
+    throw new Error("Passwords do not match");
   }
+
+  const payload = {
+    fullName,
+    email,
+    passwordHash: password
+  };
+
+  const response = await api.post("/User/signup", payload);
+
+  return response.data;
 }
+
+
+/* ================= LOGIN ================= */
 
 export async function loginService(email, password) {
-  try {
-    const payload = {
-      email,
-      password
-    };
+  const response = await api.post("/User/login", {
+    email,
+    password
+  });
 
-    const response = await api.post("/User/login", payload);
-
-    // Assuming the response contains a jwtToken so we can reuse credentials
-    if (response.data.jwtToken) {
-      localStorage.setItem("token", response.data.jwtToken);
-    }
-
-    return response.data;
-  } catch (error) {
-    console.error("Login service error:", error);
-    throw error;
+  if (response.data?.jwtToken) {
+    localStorage.setItem("token", response.data.jwtToken);
   }
+
+  return response.data;
 }
 
-export async function completeProfile(profileData) {
-  try {
-    const response = await api.post("/User/complete-profile", profileData);
 
-    return response.data;
-  } catch (error) {
-    console.error("Complete profile error:", error);
-    throw error;
-  }
+/* ================= COMPLETE PROFILE ================= */
+
+export async function completeProfile(profileData) {
+  const response = await api.post(
+    "/User/complete-profile",
+    profileData
+  );
+
+  return response.data;
 }

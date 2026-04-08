@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
 import styles from "./signup.module.css";
-import signupService from "../services/signupService";
+import {signupService} from "../services/signupService";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -16,31 +16,33 @@ const Signup = () => {
 
   const passwordsMismatch = confirmPassword && password !== confirmPassword;
 
-  const handleSignup = async (event) => {
-    event.preventDefault();
-    setErrorMessage("");
+const handleSignup = async (event) => {
+  event.preventDefault();
+  setErrorMessage("");
 
-    if (!name || !email || !password || !confirmPassword) {
-      setErrorMessage("Please fill in every field to continue.");
-      return;
-    }
+  if (!name || !email || !password || !confirmPassword) {
+    setErrorMessage("Please fill in every field to continue.");
+    return;
+  }
 
-    if (password !== confirmPassword) {
-      return;
-    }
+  if (password !== confirmPassword) {
+    setErrorMessage("Passwords do not match.");
+    return;
+  }
 
-    setIsSubmitting(true);
+  setIsSubmitting(true);
 
-    try {
-      await signupService(name, email, password);
-      navigate("/verify-otp?flow=signup");
-    } catch (error) {
-      const backendMessage = error?.response?.data?.message;
-      setErrorMessage(backendMessage ?? "Signup failed. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  try {
+    await signupService(name, email, password, confirmPassword);
+
+    navigate("/verify-otp?flow=signup");
+  } catch (error) {
+    const backendMessage = error?.response?.data?.message;
+    setErrorMessage(backendMessage ?? "Signup failed. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className={`page ${styles.container}`}>

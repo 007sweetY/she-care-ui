@@ -1,8 +1,11 @@
 import axios from "axios";
 
-// Simple axios wrapper that targets the .NET backend.
+const baseURL = import.meta.env.VITE_API_ENDPOINT ?? "/api";
+
+// Shared axios client for frontend requests.
+// In local dev, "/api" is proxied by Vite to your backend target.
 const API = axios.create({
-  baseURL: "https://localhost:5001/api", // your .NET API URL
+  baseURL,
   headers: {
     "Content-Type": "application/json"
   }
