@@ -243,6 +243,22 @@
   gap: 8px;
 }
 
+.errorText,
+.successText {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.errorText {
+  color: #c22f4f;
+}
+
+.successText {
+  color: #1a8f52;
+}
+
 .continueBtn {
   min-width: 220px;
   border: none;
@@ -255,6 +271,12 @@
   box-shadow: 0 16px 35px rgba(var(--secondary-rgb), 0.24);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.continueBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
 }
 
 .continueBtn:hover {

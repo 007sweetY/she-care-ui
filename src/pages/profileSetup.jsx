@@ -4,59 +4,83 @@ import leafImage from "../assets/leaf.png";
 import { completeProfile } from "../services/signupService";
 import styles from "./profileSetup.module.css";
 
-// will eventually fetch these from backend based on user's signup choices,
-// but hardcoding for now to speed up development
 const healthGoals = [
-  { id: 1, value: "PCOS Management", icon: "🌸" },
-  { id: 2, value: "Period Tracking", icon: "🩸" },
-  { id: 3, value: "Pregnancy Care", icon: "🤰" },
-  { id: 4, value: "Weight Loss", icon: "🏃‍♀️" },
-  { id: 5, value: "General Wellness", icon: "🍃" },
+  { id: 1, value: "PCOS Management", icon: "PC" },
+  { id: 2, value: "Period Tracking", icon: "PT" },
+  { id: 3, value: "Pregnancy Care", icon: "PR" },
+  { id: 4, value: "Weight Loss", icon: "WL" },
+  { id: 5, value: "General Wellness", icon: "GW" }
 ];
 
-const features = [
-  { label: "Period Tracking", icon: "PT" },
-  { label: "Pregnancy Care", icon: "PC" },
-  { label: "Weight Loss", icon: "WL" },
-  { label: "Wellness Tips", icon: "WT" },
+const sexOptions = [
+  { id: 1, label: "Female" },
+  { id: 2, label: "Male" },
+  { id: 3, label: "Other" }
+];
+
+const bloodGroupOptions = [
+  { id: 1, label: "A+" },
+  { id: 2, label: "A-" },
+  { id: 3, label: "B+" },
+  { id: 4, label: "B-" },
+  { id: 5, label: "AB+" },
+  { id: 6, label: "AB-" },
+  { id: 7, label: "O+" },
+  { id: 8, label: "O-" }
 ];
 
 export default function ProfileSetup() {
-  // Capture the profile inputs before sending them to the service.
   const [formData, setFormData] = useState({
     age: "",
     height: "",
     weight: "",
     city: "",
-    healthGoal: 1
+    healthGoal: 1,
+    sex: 1,
+    bloodGroup: 1
   });
 
-  // Mirror field updates into the local form state.
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
-  // Submit the profile data so backend can personalize the journey.
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    const payload = {
+      age: Number.parseInt(formData.age, 10),
+      height: Number.parseInt(formData.height, 10),
+      weight: Number.parseInt(formData.weight, 10),
+      city: formData.city.trim(),
+      healthGoal: Number.parseInt(formData.healthGoal, 10),
+      sex: Number.parseInt(formData.sex, 10),
+      bloodGroup: Number.parseInt(formData.bloodGroup, 10)
+    };
+
     try {
-      const payload = {
-        age: parseInt(formData.age),
-        height: parseInt(formData.height),
-        weight: parseInt(formData.weight),
-        city: formData.city,
-        healthGoal: parseInt(formData.healthGoal)
-      };
+      setIsSubmitting(true);
       const response = await completeProfile(payload);
       console.log("Profile completed:", response);
-      // Handle success, maybe navigate to next page
+      setSuccessMessage("Profile setup completed successfully.");
     } catch (error) {
+      const backendMessage =
+        error?.response?.data?.message ??
+        error?.response?.data?.error ??
+        "Error completing profile. Please try again.";
+      setErrorMessage(backendMessage);
       console.error("Error completing profile:", error);
-      // Handle error
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -69,7 +93,7 @@ export default function ProfileSetup() {
             <h1>
               Welcome to <span className={styles.brand}>SheCare</span>
             </h1>
-            <p>Let's personalize your wellness journey.</p>
+            <p>Let&apos;s personalize your wellness journey.</p>
           </div>
         </section>
 
@@ -92,31 +116,66 @@ export default function ProfileSetup() {
               <div className={styles.innerForm}>
                 <div className={styles.field}>
                   <label htmlFor="age">Age</label>
-                  <input id="age" name="age" type="number" value={formData.age} onChange={handleChange} required />
+                  <input
+                    id="age"
+                    name="age"
+                    type="number"
+                    min="1"
+                    value={formData.age}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
 
                 <div className={styles.dualFieldRow}>
                   <div className={`${styles.field} ${styles.halfField}`}>
-                    <label htmlFor="height">Height</label>
-                    <input id="height" name="height" value={formData.height} onChange={handleChange} required />
+                    <label htmlFor="height">Height (cm)</label>
+                    <input
+                      id="height"
+                      name="height"
+                      type="number"
+                      min="1"
+                      value={formData.height}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
                   <div className={`${styles.field} ${styles.halfField}`}>
-                    <label htmlFor="weight">Weight</label>
-                    <input id="weight" name="weight" value={formData.weight} onChange={handleChange} required />
+                    <label htmlFor="weight">Weight (kg)</label>
+                    <input
+                      id="weight"
+                      name="weight"
+                      type="number"
+                      min="1"
+                      value={formData.weight}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
                 </div>
 
                 <div className={styles.field}>
                   <label htmlFor="city">City</label>
                   <div className={styles.cityWrapper}>
-                    <input id="city" name="city" value={formData.city} onChange={handleChange} required />
+                    <input
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleChange}
+                      required
+                    />
                     <span className={styles.cityIcon} aria-hidden />
                   </div>
                 </div>
 
                 <div className={styles.field}>
                   <label htmlFor="healthGoal">Health Goal</label>
-                  <select id="healthGoal" name="healthGoal" value={formData.healthGoal} onChange={handleChange}>
+                  <select
+                    id="healthGoal"
+                    name="healthGoal"
+                    value={formData.healthGoal}
+                    onChange={handleChange}
+                  >
                     {healthGoals.map((goal) => (
                       <option key={goal.id} value={goal.id}>
                         {goal.icon} {goal.value}
@@ -124,26 +183,45 @@ export default function ProfileSetup() {
                     ))}
                   </select>
                 </div>
+
+                <div className={styles.dualFieldRow}>
+                  <div className={`${styles.field} ${styles.halfField}`}>
+                    <label htmlFor="sex">Sex</label>
+                    <select id="sex" name="sex" value={formData.sex} onChange={handleChange}>
+                      {sexOptions.map((sex) => (
+                        <option key={sex.id} value={sex.id}>
+                          {sex.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className={`${styles.field} ${styles.halfField}`}>
+                    <label htmlFor="bloodGroup">Blood Group</label>
+                    <select
+                      id="bloodGroup"
+                      name="bloodGroup"
+                      value={formData.bloodGroup}
+                      onChange={handleChange}
+                    >
+                      {bloodGroupOptions.map((group) => (
+                        <option key={group.id} value={group.id}>
+                          {group.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <div className={styles.buttonGroup}>
-                <button type="submit" className={styles.continueBtn}>
-                  Continue
+                {errorMessage && <p className={styles.errorText}>{errorMessage}</p>}
+                {successMessage && <p className={styles.successText}>{successMessage}</p>}
+                <button type="submit" className={styles.continueBtn} disabled={isSubmitting}>
+                  {isSubmitting ? "Saving..." : "Continue"}
                 </button>
-                {/* <p className={styles.note}>You can update these details anytime.</p> */}
               </div>
             </form>
-
-            {/* <div className={styles.featureRow}>
-              {features.map((feature) => (
-                <div key={feature.label} className={styles.featureCard}>
-                  <div className={styles.featureIcon} aria-hidden="true">
-                    {feature.icon}
-                  </div>
-                  <span>{feature.label}</span>
-                </div>
-              ))}
-            </div> */}
           </div>
         </article>
       </div>

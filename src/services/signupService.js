@@ -23,6 +23,17 @@ export async function signupService(
   return response.data;
 }
 
+/* ================= VERIFY OTP ================= */
+
+export async function verifyOtpService(email, otp) {
+  const response = await api.post("/User/verify-otp", {
+    email,
+    otp
+  });
+
+  return response.data;
+}
+
 
 /* ================= LOGIN ================= */
 

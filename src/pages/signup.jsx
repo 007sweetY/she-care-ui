@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import girlImg from "../assets/girl.png";
 import leafImg from "../assets/leaf.png";
 import styles from "./signup.module.css";
-import {signupService} from "../services/signupService";
+import { signupService } from "../services/signupService";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -35,7 +35,8 @@ const handleSignup = async (event) => {
   try {
     await signupService(name, email, password, confirmPassword);
 
-    navigate("/verify-otp?flow=signup");
+    const encodedEmail = encodeURIComponent(email.trim());
+    navigate(`/verify-otp?flow=signup&email=${encodedEmail}`);
   } catch (error) {
     const backendMessage = error?.response?.data?.message;
     setErrorMessage(backendMessage ?? "Signup failed. Please try again.");
