@@ -1,0 +1,279 @@
+.pageWrapper {
+  min-height: 100vh;
+  width: min(430px, 100%);
+  margin: 0 auto;
+  padding: 22px 16px 24px;
+  background: linear-gradient(180deg, #f8fafc 0%, #f3f8ff 46%, #eef5ff 100%);
+  color: #14314f;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 84px;
+}
+
+.topBar {
+  padding-top: 8px;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #6282a6;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 4px 0 2px;
+  font-size: 27px;
+  line-height: 1.2;
+  color: #0f2f52;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #5f7691;
+}
+
+.card {
+  border-radius: 18px;
+  border: 1px solid #d8e5f1;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(30, 57, 91, 0.08);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #14365d;
+}
+
+.iconBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  background: #edf4ff;
+  color: #25578c;
+  border: 1px solid #d3e1f1;
+  flex-shrink: 0;
+}
+
+.chipWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pillButton {
+  border: 1px solid #d8e4f1;
+  background: #f8fbff;
+  color: #335576;
+  border-radius: 999px;
+  padding: 8px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pillButton:hover {
+  border-color: #b7d1ea;
+  background: #f0f7ff;
+}
+
+.pillButton:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(70, 140, 213, 0.22);
+  outline-offset: 1px;
+}
+
+.pillActive {
+  border-color: #2f6fb1;
+  background: #e9f2fe;
+  color: #124577;
+}
+
+.gridTwo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #5a7595;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  border-radius: 12px;
+  border: 1px solid #d8e4f1;
+  background: #fbfdff;
+  color: #1f3f60;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 11px;
+  box-sizing: border-box;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: #607c9a;
+  font-size: 12px;
+}
+
+.sliderHeader strong {
+  color: #1c436f;
+  font-size: 13px;
+}
+
+.slider {
+  width: 100%;
+  accent-color: #3b7fc4;
+}
+
+.progressTrack {
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e4edf8;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #3a79be, #6ba4df);
+}
+
+.checkboxList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #315173;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkboxItem input {
+  width: 16px;
+  height: 16px;
+  accent-color: #2f72b5;
+}
+
+.toggleRow {
+  border: 1px solid #d8e4f1;
+  background: #f8fbff;
+  border-radius: 12px;
+  padding: 9px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #335778;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.toggleRow input {
+  width: 18px;
+  height: 18px;
+  accent-color: #2f72b5;
+}
+
+.footerAction {
+  position: static;
+  padding-top: 2px;
+}
+
+.saveButton {
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2f6eb4, #4b8bce);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px;
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(38, 88, 142, 0.26);
+}
+
+.saveButton:hover {
+  filter: brightness(1.02);
+}
+
+.saveButton:focus-visible {
+  outline: 3px solid rgba(70, 140, 213, 0.25);
+  outline-offset: 2px;
+}
+
+.screenReaderOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 420px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .gridTwo {
+    grid-template-columns: 1fr;
+  }
+
+  .footerAction {
+    position: sticky;
+    bottom: 10px;
+    margin-top: 4px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+}
+
+@media (min-width: 421px) {
+  .footerAction {
+    margin-top: 2px;
+  }
+}

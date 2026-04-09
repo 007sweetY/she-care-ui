@@ -11,6 +11,7 @@ import Signup from "./pages/signup";
 import DietPlanPage from "./pages/dietPlan";
 import SymptomsPage from "./pages/symptoms";
 import VerifyOtp from "./pages/verifyOtp";
+import AddDailyEntryPage from "./pages/addDailyEntry";
 
 const THEME_STORAGE_KEY = "shecare-theme";
 
@@ -66,6 +67,7 @@ function App() {
             <Route path="/cycle" element={<Cycle />} />
             <Route path="/symptoms" element={<SymptomsPage />} />
             <Route path="/diet-plan" element={<DietPlanPage />} />
+            <Route path="/add-entry" element={<AddDailyEntryPage />} />
           </Routes>
         </BrowserRouter>
       </div>
