@@ -12,6 +12,8 @@ const Login = () => {
     email: "",
     password: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Keep the local form data in sync with the inputs.
   const handleChange = (e) => {
@@ -25,14 +27,38 @@ const Login = () => {
   // Async submit that posts credentials to the login service.
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+
     try {
+      setIsSubmitting(true);
       const response = await loginService(formData.email, formData.password);
-      console.log("Login successful:", response);
-      // Navigate to profile setup or dashboard
-      navigate("/profile-setup");
+
+      const token =
+        response?.jwtToken ??
+        response?.token ??
+        response?.accessToken ??
+        response?.data?.jwtToken ??
+        response?.data?.token ??
+        response?.data?.accessToken ??
+        localStorage.getItem("token") ??
+        null;
+
+      if (!token) {
+        setErrorMessage("Login succeeded, but token was not returned by backend.");
+        return;
+      }
+
+      // Navigate to dashboard after successful login.
+      navigate("/dashboard");
     } catch (error) {
-      console.error("Login failed:", error);
-      // Handle error, show message
+      const backendMessage =
+        error?.response?.data?.message ??
+        error?.response?.data?.error ??
+        "Login failed. Please check your credentials and try again.";
+
+      setErrorMessage(backendMessage);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -99,9 +125,10 @@ const Login = () => {
               />
             </div>
 
-            <button className={styles.submitButton} type="submit">
-              Login
+            <button className={styles.submitButton} type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Logging in..." : "Login"}
             </button>
+            {errorMessage && <p className={styles.errorText}>{errorMessage}</p>}
           </form>
 
           <p className={styles.footer}>

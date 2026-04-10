@@ -4,6 +4,10 @@ import styles from "./dashboard.module.css";
 import { getDashboardSummary } from "../services/dashboardService";
 
 const moodOptions = ["Great", "Good", "Okay", "Low", "Stressed"];
+const sleepQualityLabels = ["Poor", "Average", "Good", "Excellent"];
+const activityLabels = ["Walking", "Yoga", "Gym", "Running", "Stretching", "Other"];
+const symptomLabels = ["Headache", "Fatigue", "Cramps", "Bloating", "Back pain", "Acne", "None"];
+const flowLevelLabels = ["Light", "Medium", "Heavy"];
 
 const quickActions = [
   { title: "Cycle", subtitle: "Track cycle details", path: "/cycle" },
@@ -21,6 +25,7 @@ const navItems = [
 
 const fallbackSummary = {
   userName: "SheCare Member",
+  moodLabel: "Great",
   cycle: {
     nextPeriodInDays: 15,
     cycleDay: 12
@@ -62,13 +67,138 @@ const fallbackSummary = {
   ]
 };
 
+const toFiniteNumber = (value, fallback = 0) => {
+  const num = Number(value);
+  return Number.isFinite(num) ? num : fallback;
+};
+
+const isDailyEntryShape = (data) => {
+  return Boolean(
+    data &&
+      typeof data === "object" &&
+      (Object.prototype.hasOwnProperty.call(data, "mood") ||
+        Object.prototype.hasOwnProperty.call(data, "sleep") ||
+        Object.prototype.hasOwnProperty.call(data, "hydrationLiters"))
+  );
+};
+
+const formatSleepHours = (bedtime, wakeTime) => {
+  if (!bedtime || !wakeTime || typeof bedtime !== "string" || typeof wakeTime !== "string") {
+    return "N/A";
+  }
+
+  const [bedH, bedM] = bedtime.split(":").map(Number);
+  const [wakeH, wakeM] = wakeTime.split(":").map(Number);
+
+  if (![bedH, bedM, wakeH, wakeM].every(Number.isFinite)) {
+    return "N/A";
+  }
+
+  const bedtimeMinutes = bedH * 60 + bedM;
+  const wakeMinutes = wakeH * 60 + wakeM;
+  let diff = wakeMinutes - bedtimeMinutes;
+
+  if (diff < 0) {
+    diff += 24 * 60;
+  }
+
+  const hours = Math.floor(diff / 60);
+  const mins = diff % 60;
+  return `${hours}h ${mins}m`;
+};
+
+const normalizeFromDailyEntry = (data) => {
+  const moodIndex = toFiniteNumber(data?.mood, 0);
+  const moodLabel = moodOptions[moodIndex] ?? fallbackSummary.moodLabel;
+  const sleepHours = formatSleepHours(data?.sleep?.bedtime, data?.sleep?.wakeTime);
+  const sleepQuality = sleepQualityLabels[toFiniteNumber(data?.sleep?.quality, 0)] ?? "N/A";
+  const hydrationCurrent = toFiniteNumber(data?.hydrationLiters, fallbackSummary.hydration.current);
+  const symptoms = Array.isArray(data?.symptoms) ? data.symptoms : [];
+  const mappedSymptoms = symptoms
+    .map((symptomIndex) => symptomLabels[toFiniteNumber(symptomIndex, -1)])
+    .filter(Boolean)
+    .filter((label) => label !== "None");
+  const symptomText = mappedSymptoms.length > 0 ? mappedSymptoms.join(", ") : "None";
+  const activityType = activityLabels[toFiniteNumber(data?.activity?.type, 0)] ?? "Other";
+  const activityDuration = toFiniteNumber(data?.activity?.durationMinutes, 0);
+  const flowLevel = flowLevelLabels[toFiniteNumber(data?.flowLevel, 1)] ?? "Medium";
+  const systolic = toFiniteNumber(data?.bloodPressure?.systolic, 0);
+  const diastolic = toFiniteNumber(data?.bloodPressure?.diastolic, 0);
+
+  return {
+    userName: data?.userName ?? data?.name ?? fallbackSummary.userName,
+    moodLabel,
+    cycle: {
+      nextPeriodInDays:
+        data?.cycle?.nextPeriodInDays ?? data?.nextPeriodInDays ?? fallbackSummary.cycle.nextPeriodInDays,
+      cycleDay: data?.cycle?.cycleDay ?? data?.cycleDay ?? fallbackSummary.cycle.cycleDay
+    },
+    hydration: {
+      current: hydrationCurrent,
+      goal: data?.hydration?.goal ?? data?.waterGoal ?? fallbackSummary.hydration.goal
+    },
+    pinned: [
+      { id: "sleep", label: "Sleep", value: sleepHours, note: `Quality: ${sleepQuality}` },
+      {
+        id: "activity",
+        label: "Activity",
+        value: `${activityDuration} min`,
+        note: activityType
+      },
+      {
+        id: "bp",
+        label: "Blood Pressure",
+        value: `${systolic}/${diastolic}`,
+        note: "mmHg"
+      },
+      { id: "mood", label: "Mood", value: moodLabel, note: "Latest entry" }
+    ],
+    highlights: [
+      {
+        id: "h1",
+        title: "Stress & Anxiety",
+        detail: `Stress ${toFiniteNumber(data?.stressLevel, 0)}/10, Anxiety ${toFiniteNumber(data?.anxietyLevel, 0)}/10`,
+        trend: "stable"
+      },
+      {
+        id: "h2",
+        title: "Diet Check",
+        detail: `Breakfast ${data?.diet?.breakfast ? "Yes" : "No"}, Lunch ${data?.diet?.lunch ? "Yes" : "No"}, Dinner ${
+          data?.diet?.dinner ? "Yes" : "No"
+        }`,
+        trend: "stable"
+      },
+      {
+        id: "h3",
+        title: "Symptoms",
+        detail: symptomText,
+        trend: mappedSymptoms.length > 0 ? "attention" : "improving"
+      }
+    ],
+    trends: [
+      { id: "t1", label: "Energy", value: `${toFiniteNumber(data?.energyLevel, 0)}/10` },
+      { id: "t2", label: "Workload", value: `${toFiniteNumber(data?.workloadPressure, 0)}/10` },
+      { id: "t3", label: "Meditation", value: `${toFiniteNumber(data?.meditationMinutes, 0)} min` }
+    ],
+    // Keep original fields if needed later in UI.
+    periodStarted: Boolean(data?.periodStarted),
+    flowLevel,
+    notes: data?.notes ?? ""
+  };
+};
+
 const normalizeSummary = (data) => {
   if (!data || typeof data !== "object") {
     return fallbackSummary;
   }
 
+  if (isDailyEntryShape(data)) {
+    return normalizeFromDailyEntry(data);
+  }
+
   return {
     userName: data.userName ?? data.name ?? fallbackSummary.userName,
+    moodLabel: data.moodLabel ?? fallbackSummary.moodLabel,
     cycle: {
       nextPeriodInDays:
         data?.cycle?.nextPeriodInDays ?? data.nextPeriodInDays ?? fallbackSummary.cycle.nextPeriodInDays,
@@ -128,6 +258,12 @@ const Dashboard = () => {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (summary?.moodLabel && moodOptions.includes(summary.moodLabel)) {
+      setSelectedMood(summary.moodLabel);
+    }
+  }, [summary]);
 
   const hydrationPercent = useMemo(() => {
     const safeGoal = Number(summary?.hydration?.goal ?? 0);

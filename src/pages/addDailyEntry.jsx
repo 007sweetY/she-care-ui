@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { saveDailyEntry } from "../services/dashboardService";
 import styles from "./addDailyEntry.module.css";
 
@@ -81,7 +82,22 @@ const SectionHeader = ({ icon, title }) => (
   </div>
 );
 
+const toDateTimeLocalValue = (date) => {
+  const pad = (value) => String(value).padStart(2, "0");
+
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(
+    date.getMinutes()
+  )}`;
+};
+
+const toNumberOrZero = (value) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
 const AddDailyEntryPage = () => {
+  const navigate = useNavigate();
+  const [entryDateTime, setEntryDateTime] = useState(() => toDateTimeLocalValue(new Date()));
   const [selectedMood, setSelectedMood] = useState("Good");
   const [bedtime, setBedtime] = useState("");
   const [wakeTime, setWakeTime] = useState("");
@@ -147,14 +163,11 @@ const AddDailyEntryPage = () => {
     setSubmitError("");
     setSubmitMessage("");
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setSubmitError("Please login again. Authentication token is missing.");
-      return;
-    }
+    const selectedDate = entryDateTime ? new Date(entryDateTime) : new Date();
+    const date = Number.isNaN(selectedDate.getTime()) ? new Date().toISOString() : selectedDate.toISOString();
 
     const payload = {
-      date: new Date().toISOString(),
+      date,
       mood: moodEnumMap[selectedMood],
       sleep: {
         bedtime,
@@ -164,18 +177,18 @@ const AddDailyEntryPage = () => {
       energyLevel,
       stressLevel,
       sexualActivity,
-      caffeineIntakeCups: Number(caffeineIntake) || 0,
-      meditationMinutes: Number(meditationMinutes) || 0,
+      caffeineIntakeCups: toNumberOrZero(caffeineIntake),
+      meditationMinutes: toNumberOrZero(meditationMinutes),
       workloadPressure,
       anxietyLevel,
       bloodPressure: {
-        systolic: Number(bloodPressureSystolic) || 0,
-        diastolic: Number(bloodPressureDiastolic) || 0
+        systolic: toNumberOrZero(bloodPressureSystolic),
+        diastolic: toNumberOrZero(bloodPressureDiastolic)
       },
       hydrationLiters: hydration,
       activity: {
         type: activityEnumMap[activity],
-        durationMinutes: Number(duration) || 0
+        durationMinutes: toNumberOrZero(duration)
       },
       diet,
       symptoms: symptoms.map((symptom) => symptomEnumMap[symptom]),
@@ -189,6 +202,9 @@ const AddDailyEntryPage = () => {
       const response = await saveDailyEntry(payload);
       const successText = response?.message ?? "Daily entry saved successfully.";
       setSubmitMessage(successText);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 600);
     } catch (error) {
       const backendMessage =
         error?.response?.data?.message ??
@@ -208,6 +224,19 @@ const AddDailyEntryPage = () => {
           <h1 className={styles.title}>Add Daily Entry</h1>
           <p className={styles.subtitle}>Capture your wellness signals for SheCare.</p>
         </header>
+
+        <section className={styles.card}>
+          <SectionHeader icon="cycle" title="Entry Date & Time" />
+          <label className={styles.field}>
+            <span>Date & Time</span>
+            <input
+              type="datetime-local"
+              value={entryDateTime}
+              onChange={(event) => setEntryDateTime(event.target.value)}
+              max={toDateTimeLocalValue(new Date())}
+            />
+          </label>
+        </section>
 
         <section className={styles.card}>
           <SectionHeader icon="mood" title="Mood" />

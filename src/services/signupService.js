@@ -43,8 +43,17 @@ export async function loginService(email, password) {
     password
   });
 
-  if (response.data?.jwtToken) {
-    localStorage.setItem("token", response.data.jwtToken);
+  const token =
+    response?.data?.jwtToken ??
+    response?.data?.token ??
+    response?.data?.accessToken ??
+    response?.data?.data?.jwtToken ??
+    response?.data?.data?.token ??
+    response?.data?.data?.accessToken ??
+    null;
+
+  if (token) {
+    localStorage.setItem("token", token);
   }
 
   return response.data;
