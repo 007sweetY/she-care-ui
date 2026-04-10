@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { saveDailyEntry } from "../services/dashboardService";
 import styles from "./addDailyEntry.module.css";
 
 const moodOptions = ["Great", "Good", "Okay", "Low", "Stressed"];
@@ -6,6 +7,46 @@ const sleepQualityOptions = ["Poor", "Average", "Good", "Excellent"];
 const activityOptions = ["Walking", "Yoga", "Gym", "Running", "Stretching", "Other"];
 const symptomOptions = ["Headache", "Fatigue", "Cramps", "Bloating", "Back pain", "Acne", "None"];
 const flowLevels = ["Light", "Medium", "Heavy"];
+
+const moodEnumMap = {
+  Great: 0,
+  Good: 1,
+  Okay: 2,
+  Low: 3,
+  Stressed: 4
+};
+
+const sleepQualityEnumMap = {
+  Poor: 0,
+  Average: 1,
+  Good: 2,
+  Excellent: 3
+};
+
+const activityEnumMap = {
+  Walking: 0,
+  Yoga: 1,
+  Gym: 2,
+  Running: 3,
+  Stretching: 4,
+  Other: 5
+};
+
+const symptomEnumMap = {
+  Headache: 0,
+  Fatigue: 1,
+  Cramps: 2,
+  Bloating: 3,
+  "Back pain": 4,
+  Acne: 5,
+  None: 6
+};
+
+const flowLevelEnumMap = {
+  Light: 0,
+  Medium: 1,
+  Heavy: 2
+};
 
 const IconBadge = ({ children }) => <span className={styles.iconBadge}>{children}</span>;
 
@@ -68,6 +109,9 @@ const AddDailyEntryPage = () => {
   const [periodStarted, setPeriodStarted] = useState(false);
   const [flowLevel, setFlowLevel] = useState("Medium");
   const [notes, setNotes] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const hydrationPercent = useMemo(() => Math.max(0, Math.min(100, (hydration / 3) * 100)), [hydration]);
 
@@ -98,8 +142,62 @@ const AddDailyEntryPage = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setSubmitError("");
+    setSubmitMessage("");
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setSubmitError("Please login again. Authentication token is missing.");
+      return;
+    }
+
+    const payload = {
+      date: new Date().toISOString(),
+      mood: moodEnumMap[selectedMood],
+      sleep: {
+        bedtime,
+        wakeTime,
+        quality: sleepQualityEnumMap[sleepQuality]
+      },
+      energyLevel,
+      stressLevel,
+      sexualActivity,
+      caffeineIntakeCups: Number(caffeineIntake) || 0,
+      meditationMinutes: Number(meditationMinutes) || 0,
+      workloadPressure,
+      anxietyLevel,
+      bloodPressure: {
+        systolic: Number(bloodPressureSystolic) || 0,
+        diastolic: Number(bloodPressureDiastolic) || 0
+      },
+      hydrationLiters: hydration,
+      activity: {
+        type: activityEnumMap[activity],
+        durationMinutes: Number(duration) || 0
+      },
+      diet,
+      symptoms: symptoms.map((symptom) => symptomEnumMap[symptom]),
+      periodStarted,
+      flowLevel: flowLevelEnumMap[flowLevel],
+      notes
+    };
+
+    try {
+      setIsSubmitting(true);
+      const response = await saveDailyEntry(payload);
+      const successText = response?.message ?? "Daily entry saved successfully.";
+      setSubmitMessage(successText);
+    } catch (error) {
+      const backendMessage =
+        error?.response?.data?.message ??
+        error?.response?.data?.error ??
+        "Failed to save daily entry. Please try again.";
+      setSubmitError(backendMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -409,8 +507,10 @@ const AddDailyEntryPage = () => {
         </section>
 
         <div className={styles.footerAction}>
-          <button type="submit" className={styles.saveButton}>
-            Save Entry
+          {submitError && <p className={styles.errorText}>{submitError}</p>}
+          {submitMessage && <p className={styles.successText}>{submitMessage}</p>}
+          <button type="submit" className={styles.saveButton} disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Entry"}
           </button>
         </div>
       </form>

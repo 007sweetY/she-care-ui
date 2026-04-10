@@ -243,6 +243,25 @@ input:focus-visible {
   outline-offset: 2px;
 }
 
+.saveButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.errorText {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #9b1c1c;
+  font-weight: 600;
+}
+
+.successText {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #1f7a43;
+  font-weight: 600;
+}
+
 .screenReaderOnly {
   position: absolute;
   width: 1px;
