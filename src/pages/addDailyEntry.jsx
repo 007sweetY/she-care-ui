@@ -139,6 +139,20 @@ const AddDailyEntryPage = () => {
     return "Very High";
   }, [energyLevel]);
 
+  const completionPercent = useMemo(() => {
+    let score = 0;
+    if (selectedMood) score += 1;
+    if (bedtime && wakeTime) score += 1;
+    if (sleepQuality) score += 1;
+    if (hydration > 0) score += 1;
+    if (activity) score += 1;
+    if (duration) score += 1;
+    if (symptoms.length > 0) score += 1;
+    if (notes.trim()) score += 1;
+
+    return Math.round((score / 8) * 100);
+  }, [selectedMood, bedtime, wakeTime, sleepQuality, hydration, activity, duration, symptoms, notes]);
+
   const toggleDietItem = (key) => {
     setDiet((prev) => ({ ...prev, [key]: !prev[key] }));
   };
@@ -218,12 +232,27 @@ const AddDailyEntryPage = () => {
 
   return (
     <main className={`page ${styles.pageWrapper}`}>
+      <div className={styles.backgroundGlow} aria-hidden="true" />
       <form className={styles.form} onSubmit={handleSubmit}>
         <header className={styles.topBar}>
+          <button type="button" className={styles.backButton} onClick={() => navigate("/dashboard")}>
+            Back
+          </button>
           <p className={styles.kicker}>Daily Log</p>
           <h1 className={styles.title}>Add Daily Entry</h1>
           <p className={styles.subtitle}>Capture your wellness signals for SheCare.</p>
         </header>
+
+        <section className={styles.heroCard}>
+          <div>
+            <p className={styles.heroLabel}>Entry Progress</p>
+            <p className={styles.heroValue}>{completionPercent}%</p>
+            <p className={styles.heroHint}>Complete this log for smarter insights in dashboard, cycle and diet plans.</p>
+          </div>
+          <div className={styles.heroRing} style={{ "--progress": `${completionPercent}%` }}>
+            <span>{completionPercent}%</span>
+          </div>
+        </section>
 
         <section className={styles.card}>
           <SectionHeader icon="cycle" title="Entry Date & Time" />

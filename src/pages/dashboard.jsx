@@ -10,17 +10,17 @@ const symptomLabels = ["Headache", "Fatigue", "Cramps", "Bloating", "Back pain",
 const flowLevelLabels = ["Light", "Medium", "Heavy"];
 
 const quickActions = [
-  { title: "Cycle", subtitle: "Track cycle details", path: "/cycle" },
-  { title: "Symptoms", subtitle: "Log your symptoms", path: "/symptoms" },
-  { title: "Diet", subtitle: "See meal guidance", path: "/diet-plan" },
-  { title: "Yoga", subtitle: "Start a routine", path: "/yoga" }
+  { id: "cycle", title: "Cycle", subtitle: "Track cycle details", path: "/cycle", icon: "CY" },
+  { id: "symptoms", title: "Symptoms", subtitle: "Log body signals", path: "/symptoms", icon: "SY" },
+  { id: "diet", title: "Diet", subtitle: "See meal guidance", path: "/diet-plan", icon: "DI" },
+  { id: "yoga", title: "Yoga", subtitle: "Start a routine", path: "/yoga", icon: "YO" }
 ];
 
 const navItems = [
-  { label: "Home", path: "/dashboard" },
-  { label: "Cycle", path: "/cycle" },
-  { label: "Journal", path: "/symptoms" },
-  { label: "Profile", path: "/profile-setup" }
+  { label: "Home", path: "/dashboard", icon: "HM" },
+  { label: "Cycle", path: "/cycle", icon: "CY" },
+  { label: "Journal", path: "/symptoms", icon: "JR" },
+  { label: "Profile", path: "/profile-setup", icon: "PR" }
 ];
 
 const fallbackSummary = {
@@ -180,7 +180,6 @@ const normalizeFromDailyEntry = (data) => {
       { id: "t2", label: "Workload", value: `${toFiniteNumber(data?.workloadPressure, 0)}/10` },
       { id: "t3", label: "Meditation", value: `${toFiniteNumber(data?.meditationMinutes, 0)} min` }
     ],
-    // Keep original fields if needed later in UI.
     periodStarted: Boolean(data?.periodStarted),
     flowLevel,
     notes: data?.notes ?? ""
@@ -276,45 +275,60 @@ const Dashboard = () => {
     return Math.min(100, Math.round((safeCurrent / safeGoal) * 100));
   }, [summary]);
 
+  const cycleProgress = useMemo(() => {
+    const day = Number(summary?.cycle?.cycleDay ?? 0);
+    return Math.max(0, Math.min(100, Math.round((day / 28) * 100)));
+  }, [summary]);
+
   const handleAddEntry = () => {
     navigate("/add-entry");
   };
 
   return (
     <div className={`page ${styles.pageWrapper}`}>
-      <header className={styles.topBar}>
+      <div className={styles.aurora} aria-hidden="true" />
+      <div className={styles.blobLeft} aria-hidden="true" />
+      <div className={styles.blobRight} aria-hidden="true" />
+
+      <header className={`${styles.heroCard} ${styles.reveal}`}>
         <div>
-          <p className={styles.kicker}>Summary</p>
+          <p className={styles.kicker}>SheCare Dashboard</p>
           <h1 className={styles.title}>Hello, {summary.userName}</h1>
-          <p className={styles.subtitle}>Your health overview for today.</p>
+          <p className={styles.subtitle}>Your wellness rhythm for today.</p>
         </div>
-        <div className={styles.datePill}>{new Date().toLocaleDateString()}</div>
+        <div className={styles.heroMeta}>
+          <span className={styles.datePill}>{new Date().toLocaleDateString()}</span>
+          <span className={styles.moodPill}>Mood: {selectedMood}</span>
+        </div>
       </header>
 
-      {loadError && <p className={styles.infoBanner}>{loadError}</p>}
-      {isLoading && <p className={styles.infoBanner}>Loading dashboard...</p>}
+      {(loadError || isLoading) && (
+        <p className={styles.infoBanner}>{isLoading ? "Loading dashboard..." : loadError}</p>
+      )}
 
-      <section className={styles.primaryCard}>
+      <section className={`${styles.cycleSpotlight} ${styles.reveal}`}>
         <div>
           <p className={styles.cardLabel}>Cycle Status</p>
           <h2 className={styles.metric}>{summary.cycle.nextPeriodInDays} days</h2>
-          <p className={styles.metricMeta}>Next period estimate</p>
+          <p className={styles.metricMeta}>until expected next period</p>
           <p className={styles.metricHint}>Cycle day {summary.cycle.cycleDay}</p>
         </div>
-        <div className={styles.circleMeter}>
-          <span>{summary.cycle.cycleDay}</span>
-          <small>day</small>
+        <div className={styles.ringWrap}>
+          <div className={styles.ringMeter} style={{ "--progress": `${cycleProgress}%` }}>
+            <span>{summary.cycle.cycleDay}</span>
+            <small>day</small>
+          </div>
         </div>
       </section>
 
-      <section className={styles.sectionCard}>
+      <section className={`${styles.sectionCard} ${styles.reveal}`}>
         <div className={styles.sectionHeader}>
           <h3>Pinned Metrics</h3>
           <span>Today</span>
         </div>
         <div className={styles.pinnedGrid}>
-          {summary.pinned.map((item) => (
-            <article key={item.id} className={styles.pinnedItem}>
+          {summary.pinned.map((item, idx) => (
+            <article key={item.id} className={styles.pinnedItem} style={{ animationDelay: `${idx * 60}ms` }}>
               <p className={styles.pinnedLabel}>{item.label}</p>
               <p className={styles.pinnedValue}>{item.value}</p>
               <p className={styles.pinnedNote}>{item.note}</p>
@@ -323,7 +337,7 @@ const Dashboard = () => {
         </div>
       </section>
 
-      <section className={styles.sectionCard}>
+      <section className={`${styles.sectionCard} ${styles.reveal}`}>
         <div className={styles.sectionHeader}>
           <h3>Highlights</h3>
           <span>Trends</span>
@@ -351,21 +365,21 @@ const Dashboard = () => {
         </div>
       </section>
 
-      <section className={styles.sectionCard}>
+      <section className={`${styles.sectionCard} ${styles.reveal}`}>
         <div className={styles.sectionHeader}>
           <h3>Trend Snapshot</h3>
           <span>7 days</span>
         </div>
-        <div className={styles.moodRow}>
+        <div className={styles.chipRow}>
           {summary.trends.map((item) => (
-            <span key={item.id} className={styles.trendBadge}>
+            <span key={item.id} className={styles.dataChip}>
               {item.label}: {item.value}
             </span>
           ))}
         </div>
       </section>
 
-      <section className={styles.sectionCard}>
+      <section className={`${styles.sectionCard} ${styles.reveal}`}>
         <div className={styles.sectionHeader}>
           <h3>Hydration</h3>
           <span>{hydrationPercent}%</span>
@@ -378,12 +392,12 @@ const Dashboard = () => {
         </p>
       </section>
 
-      <section className={styles.sectionCard}>
+      <section className={`${styles.sectionCard} ${styles.reveal}`}>
         <div className={styles.sectionHeader}>
           <h3>How are you feeling?</h3>
           <span>Quick check-in</span>
         </div>
-        <div className={styles.moodRow}>
+        <div className={styles.chipRow}>
           {moodOptions.map((mood) => (
             <button
               key={mood}
@@ -397,14 +411,18 @@ const Dashboard = () => {
         </div>
       </section>
 
-      <section className={styles.actionsSection}>
-        {quickActions.map((action) => (
+      <section className={`${styles.actionsSection} ${styles.reveal}`}>
+        {quickActions.map((action, idx) => (
           <button
             key={action.title}
             type="button"
             className={styles.actionCard}
+            style={{ animationDelay: `${idx * 80}ms` }}
             onClick={() => navigate(action.path)}
           >
+            <span className={styles.actionIcon} aria-hidden="true">
+              {action.icon}
+            </span>
             <p className={styles.actionTitle}>{action.title}</p>
             <p className={styles.actionSubtitle}>{action.subtitle}</p>
           </button>
@@ -427,7 +445,10 @@ const Dashboard = () => {
               className={`${styles.navButton} ${active ? styles.navActive : ""}`}
               onClick={() => navigate(item.path)}
             >
-              {item.label}
+              <span className={styles.navIcon} aria-hidden="true">
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
             </button>
           );
         })}
