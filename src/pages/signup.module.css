@@ -394,30 +394,167 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 767px) {
   .container {
-    padding-inline: 14px;
+    min-height: 100dvh;
+    height: 100dvh;
+    padding: 54px 12px 12px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+    overflow: hidden;
   }
 
-  .card {
-    border-radius: 28px;
-    padding-inline: 16px;
+  .heroSection {
+    gap: 8px;
+    margin-bottom: 0;
+    justify-items: center;
   }
 
-  .brand {
-    font-size: 2.4rem;
-  }
-
-  .girlImage {
-    width: min(162px, 46vw);
+  .leafHero {
+    width: 38px;
+    margin-left: 0;
   }
 
   .heroCopy {
+    gap: 6px;
+    max-width: none;
     padding-right: 0;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+  }
+
+  .brand {
+    font-size: clamp(1.8rem, 8.6vw, 2.25rem);
+  }
+
+  .subtitle,
+  .heroPills {
+    display: none;
+  }
+
+  .illustrationShell {
+    display: flex;
+    min-height: 110px;
+    margin-top: 2px;
+  }
+
+  .illustrationHalo {
+    width: 145px;
+    height: 145px;
+  }
+
+  .girlImage {
+    width: min(140px, 40vw);
+  }
+
+  .formSection {
+    min-height: 0;
+    max-width: 100%;
+  }
+
+  .card {
+    border-radius: 24px;
+    padding: 14px 14px 12px;
+    min-height: 0;
+  }
+
+  .leafCard {
+    width: 66px;
+    right: -2px;
+    top: -8px;
   }
 
   .cardHeader {
-    padding-right: 18px;
+    margin-bottom: 10px;
+    padding-right: 12px;
+  }
+
+  .cardKicker {
+    margin-bottom: 5px;
+    padding: 4px 9px;
+    font-size: 0.66rem;
+  }
+
+  .cardHeader h2 {
+    font-size: 1.28rem;
+  }
+
+  .cardHeader p {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .form,
+  .inputGrid {
+    gap: 8px;
+  }
+
+  .inputGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .field {
+    gap: 5px;
+  }
+
+  .field label {
+    font-size: 0.74rem;
+  }
+
+  .field input {
+    border-radius: 14px;
+    padding: 10px 12px;
+    font-size: 0.87rem;
+  }
+
+  .passwordWrapper input {
+    padding-right: 45px;
+  }
+
+  .eyeBtn {
+    width: 32px;
+    height: 32px;
+    right: 10px;
+  }
+
+  .submitButton {
+    border-radius: 16px;
+    padding: 11px 14px;
+    font-size: 0.9rem;
+  }
+
+  .error {
+    font-size: 0.78rem;
+  }
+
+  .footer {
+    margin: 8px 0 0;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand {
+    font-size: 1.95rem;
+  }
+
+  .container {
+    padding-inline: 10px;
+  }
+
+  .card {
+    padding-inline: 12px;
+  }
+
+  .inputGrid {
+    grid-template-columns: 1fr;
   }
 }
 
