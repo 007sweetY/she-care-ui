@@ -1,5 +1,6 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import styles from "./symptoms.module.css";
+import { updateConceptionMode } from "../services/cycleService";
 
 // Quick set of mood emojis used in the selector grid.
 const MOODS = ["😄", "😐", "😢", "😡", "😴", "😰"];
@@ -35,8 +36,13 @@ const SYMPTOM_CATEGORIES = [
   },
 ];
 
-// const FLOW_OPTIONS = ["🩸 None", "🩸 Light", "🩸 Medium", "🩸 Heavy"];
 const FLOW_OPTIONS = ["None", "Light", "Medium", "Heavy"];
+const MODE_OPTIONS = [
+  { label: "Trying to Conceive", value: "TryingToConceive" },
+  { label: "Avoid Pregnancy", value: "AvoidPregnancy" },
+  { label: "Track Health Only", value: "TrackHealthOnly" },
+];
+const MODE_STORAGE_KEY = "shecareConceptionMode";
 
 // Grid of mood buttons used across the log screen.
 const MoodSelector = ({ selectedMood, onSelect }) => (
@@ -45,9 +51,7 @@ const MoodSelector = ({ selectedMood, onSelect }) => (
       <button
         key={index}
         type="button"
-        className={`${styles.moodButton} ${
-          selectedMood === mood ? styles.moodButtonActive : ""
-        }`}
+        className={`${styles.moodButton} ${selectedMood === mood ? styles.moodButtonActive : ""}`}
         onClick={() => onSelect(mood)}
       >
         {mood}
@@ -68,9 +72,8 @@ const SymptomChips = ({ categories, selectedSymptoms, onToggle }) => (
             return (
               <button
                 key={label}
-                className={`${styles.chip} ${
-                  isSelected ? styles.chipActive : ""
-                }`}
+                type="button"
+                className={`${styles.chip} ${isSelected ? styles.chipActive : ""}`}
                 onClick={() => onToggle(label)}
               >
                 {emoji} {label}
@@ -83,16 +86,14 @@ const SymptomChips = ({ categories, selectedSymptoms, onToggle }) => (
   </div>
 );
 
-// Presents the flow options as a segmented button grid.
 // Simple segmented control for flow intensity.
 const FlowSelector = ({ selectedFlow, onChange }) => (
   <div className={styles.flowGrid}>
     {FLOW_OPTIONS.map((option) => (
       <button
         key={option}
-        className={`${styles.flowButton} ${
-          selectedFlow === option ? styles.flowButtonActive : ""
-        }`}
+        type="button"
+        className={`${styles.flowButton} ${selectedFlow === option ? styles.flowButtonActive : ""}`}
         onClick={() => onChange(option)}
       >
         {option}
@@ -103,13 +104,15 @@ const FlowSelector = ({ selectedFlow, onChange }) => (
 
 // Main symptoms entry page.
 const SymptomsPage = () => {
+  const [mode, setMode] = useState(localStorage.getItem(MODE_STORAGE_KEY) ?? "TrackHealthOnly");
+  const [modeSaving, setModeSaving] = useState(false);
+  const [modeStatus, setModeStatus] = useState("");
   const [mood, setMood] = useState(MOODS[0]);
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-  const [flow, setFlow] = useState("🩸 Light");
+  const [flow, setFlow] = useState("Light");
   const [painLevel, setPainLevel] = useState(3);
   const [notes, setNotes] = useState("");
 
-  // Converts the slider value into a relatable emoji for the pain label.
   const getPainEmoji = (level) => {
     if (level <= 2) return "🙂";
     if (level <= 4) return "😌";
@@ -118,22 +121,31 @@ const SymptomsPage = () => {
     return "😫";
   };
 
-  // Cache the current pain emoji so the handle + label stay in sync.
   const currentPainEmoji = getPainEmoji(painLevel);
 
-  // Toggle a symptom selection on/off.
   const toggleSymptom = (symptom) => {
-    setSelectedSymptoms((prev) =>
-      prev.includes(symptom)
-        ? prev.filter((item) => item !== symptom)
-        : [...prev, symptom]
-    );
+    setSelectedSymptoms((prev) => (prev.includes(symptom) ? prev.filter((item) => item !== symptom) : [...prev, symptom]));
+  };
+
+  const handleModeChange = async (nextMode) => {
+    setMode(nextMode);
+    setModeSaving(true);
+    setModeStatus("");
+    localStorage.setItem(MODE_STORAGE_KEY, nextMode);
+
+    try {
+      await updateConceptionMode(nextMode);
+      setModeStatus("Mode updated");
+    } catch {
+      setModeStatus("Unable to update mode");
+    } finally {
+      setModeSaving(false);
+    }
   };
 
   return (
     <main className={`page ${styles.symptomsRoot}`}>
       <div className={styles.content}>
-        {/* HEADER */}
         <header className={styles.headerCard}>
           <p className={styles.title}>🌸 Symptoms</p>
           <p className={styles.subtitle}>Log what matters today</p>
@@ -144,47 +156,49 @@ const SymptomsPage = () => {
           </div>
         </header>
 
-        {/* MOOD */}
+        <section className={styles.card}>
+          <p className={styles.sectionTitle}>🎛 Conception Mode</p>
+          <div className={styles.modeControl} role="tablist" aria-label="Conception Mode">
+            {MODE_OPTIONS.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                role="tab"
+                aria-selected={mode === option.value}
+                className={`${styles.modeButton} ${mode === option.value ? styles.modeButtonActive : ""}`}
+                onClick={() => handleModeChange(option.value)}
+                disabled={modeSaving}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          {modeStatus ? <p className={styles.modeStatus}>{modeStatus}</p> : null}
+        </section>
+
         <section className={styles.card}>
           <p className={styles.sectionTitle}>💖 How are you feeling?</p>
           <MoodSelector selectedMood={mood} onSelect={setMood} />
         </section>
 
-        {/* SYMPTOMS */}
         <section className={styles.card}>
           <p className={styles.sectionTitle}>🌿 Symptoms</p>
-          <p className={styles.sectionSubtitle}>
-            Select anything you noticed today
-          </p>
-
-          <SymptomChips
-            categories={SYMPTOM_CATEGORIES}
-            selectedSymptoms={selectedSymptoms}
-            onToggle={toggleSymptom}
-          />
+          <p className={styles.sectionSubtitle}>Select anything you noticed today</p>
+          <SymptomChips categories={SYMPTOM_CATEGORIES} selectedSymptoms={selectedSymptoms} onToggle={toggleSymptom} />
         </section>
 
-        {/* FLOW */}
         <section className={styles.card}>
           <p className={styles.sectionTitle}>🩸 Flow</p>
           <FlowSelector selectedFlow={flow} onChange={setFlow} />
         </section>
 
-        {/* PAIN */}
         <section className={styles.card}>
-          {/* Pain summary row: emoji + numeric value. */}
           <div className={styles.painHeader}>
-            <span>
-              {currentPainEmoji} Pain Level
-            </span>
+            <span>{currentPainEmoji} Pain Level</span>
             <span>{painLevel}</span>
           </div>
-          {/* Custom slider layout with floating emoji indicator. */}
           <div className={styles.painSliderWrapper}>
-            <span
-              className={styles.painEmoji}
-              style={{ left: `${(painLevel / 10) * 100}%` }}
-            >
+            <span className={styles.painEmoji} style={{ left: `${(painLevel / 10) * 100}%` }}>
               {currentPainEmoji}
             </span>
             <input
@@ -199,7 +213,6 @@ const SymptomsPage = () => {
           </div>
         </section>
 
-        {/* NOTES */}
         <section className={styles.card}>
           <p className={styles.sectionTitle}>📝 Notes</p>
           <textarea
@@ -210,8 +223,7 @@ const SymptomsPage = () => {
           />
         </section>
 
-        {/* BUTTON */}
-        <button className={styles.saveButton}>
+        <button className={styles.saveButton} type="button">
           💾 Save Entry
         </button>
       </div>

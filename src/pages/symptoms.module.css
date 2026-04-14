@@ -61,6 +61,41 @@
   margin: 0;
 }
 
+.modeControl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.modeButton {
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--text);
+  padding: 10px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.modeButton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.modeButtonActive {
+  border-color: transparent;
+  background: var(--gradient-accent);
+  color: var(--card);
+  box-shadow: var(--card-shadow);
+}
+
+.modeStatus {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 .moodGrid {
   display: flex;
   justify-content: center;
@@ -288,4 +323,10 @@
 .saveButton:active {
   transform: translateY(2px);
   box-shadow: var(--card-shadow);
+}
+
+@media (max-width: 640px) {
+  .modeControl {
+    grid-template-columns: 1fr;
+  }
 }
