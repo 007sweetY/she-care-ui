@@ -6,8 +6,6 @@
   justify-content: center;
 }
 
-/* Layout + card spacing for the symptoms entry view. */
-
 .content {
   width: 100%;
   max-width: 420px;
@@ -17,10 +15,11 @@
 }
 
 .headerCard,
-.card {
+.card,
+.footerAction {
   background: var(--card);
-  border-radius: 24px;
-  padding: 22px;
+  border-radius: 20px;
+  padding: 20px;
   box-shadow: var(--card-shadow);
   border: 1px solid var(--border-soft);
   display: flex;
@@ -56,7 +55,7 @@
 }
 
 .sectionSubtitle {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
   margin: 0;
 }
@@ -99,29 +98,26 @@
 .moodGrid {
   display: flex;
   justify-content: center;
-  gap: 14px;
-  margin-top: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .moodButton {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: none;
-  background: var(--card);
-  font-size: 1.4rem;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--chip-shadow);
-  transition: transform 0.2s ease, background 0.2s ease;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.64);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .moodButtonActive {
   background: var(--gradient-accent);
-  color: var(--card);
-  transform: scale(1.1);
+  color: #fff;
+  box-shadow: var(--card-shadow);
 }
 
 .categoriesWrapper {
@@ -150,52 +146,70 @@
 }
 
 .chip {
-  padding: 10px 18px;
+  padding: 9px 14px;
   border-radius: 999px;
-  border: none;
-  background: var(--soft);
+  border: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.64);
   color: var(--text);
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   cursor: pointer;
   box-shadow: var(--chip-shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+}
+
+.chip:active {
+  transform: scale(0.95);
+}
+
+.chipAnimated {
+  animation: chipFade 0.22s ease;
 }
 
 .chipActive {
+  border-color: transparent;
   background: var(--gradient-accent);
-  color: var(--card);
-  transform: scale(1.04);
+  color: #fff;
+  transform: scale(1);
+  box-shadow: var(--card-shadow);
+  animation: chipPop 0.22s ease;
 }
 
-.flowGrid {
+.segmentedWrap {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
-.flowButton {
-  height: 50px;
-  border-radius: 16px;
-  border: none;
-  background: var(--soft);
-  color: var(--primary);
+.segmentedButton {
+  min-height: 40px;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.66);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
   font-weight: 600;
-  font-size: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  box-shadow: var(--chip-shadow);
+  padding: 8px 10px;
+  cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.flowButtonActive {
+.segmentedButton:hover {
+  transform: translateY(-1px);
+}
+
+.segmentedButton:active {
+  transform: scale(0.97);
+}
+
+.segmentedButtonActive {
+  border-color: transparent;
   background: var(--gradient-accent);
-  color: var(--card);
+  color: #fff;
   box-shadow: var(--card-shadow);
-  transform: scale(1.02);
 }
 
 .painHeader {
@@ -210,45 +224,26 @@
 .painSliderWrapper {
   position: relative;
   width: 100%;
-  margin-top: 12px;
 }
 
-.painEmoji {
-  position: absolute;
-  top: -20px;
-  transform: translateX(-50%);
-  font-size: 1.4rem;
-  pointer-events: none;
-  transition: left 0.25s ease;
-}
-
-.sliderWrapper {
+.sliderBlock {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 8px;
 }
 
 .sliderLabelRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
 }
 
-/* FIXED TEXT */
-.sliderTitle {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 100; /* ✅ valid */
-  color: var(--primary);
-}
-
-.sliderValue {
-  font-size: 0.95rem;
-  font-weight: 100;
+.sliderLabelRow strong {
   color: var(--text);
 }
 
-/* SLIM TRACK */
 .slider {
   width: 100%;
   height: 6px;
@@ -259,57 +254,151 @@
   appearance: none;
 }
 
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid rgba(var(--primary-rgb), 0.45);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid rgba(var(--primary-rgb), 0.45);
+  cursor: pointer;
+}
+
 .painSlider {
   margin-top: 3px;
 }
 
-/* THUMB (CHROME / EDGE) */
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  margin-top: -11px;
-  box-shadow: none;
+.premiumSlider {
+  accent-color: var(--primary);
 }
 
-/* THUMB (FIREFOX FIXED) */
-.slider::-moz-range-thumb {
-  width: 28px;
+.switchRow {
+  border: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.66);
+  border-radius: 12px;
+  padding: 9px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.switchButton {
+  width: 48px;
   height: 28px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--primary-rgb), 0.2);
+  background: rgba(var(--secondary-rgb), 0.2);
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
   cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.switchButtonOn {
+  background: rgba(var(--primary-rgb), 0.35);
+  border-color: rgba(var(--primary-rgb), 0.4);
+}
+
+.switchKnob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(10, 10, 10, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.switchButtonOn .switchKnob {
+  transform: translateX(20px);
+}
+
+.advancedCard {
+  gap: 10px;
+}
+
+.collapseTrigger {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.collapseCaret {
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.collapseCaretOpen {
+  transform: rotate(180deg);
+}
+
+.collapseBody {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: grid-template-rows 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+
+.collapseBody > * {
+  overflow: hidden;
+}
+
+.collapseBodyOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: scale(1);
 }
 
 .notesArea {
-  width: 90%;
+  width: 100%;
   padding: 14px 16px;
-  border-radius: 18px;
+  border-radius: 16px;
   border: 1px solid var(--border-soft);
   background: var(--card);
   color: var(--text);
-  font-size: 1rem;
+  font-size: 0.95rem;
   resize: none;
   box-shadow: var(--shadow-soft);
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  min-height: 88px;
 }
 
-.notesArea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: var(--card-shadow);
+.footerAction {
+  padding: 12px;
+  position: sticky;
+  bottom: 8px;
+}
+
+.saveStatus {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
 }
 
 .saveButton {
   width: 100%;
   border: none;
-  border-radius: 32px;
+  border-radius: 30px;
   padding: 14px 16px;
   font-size: 1rem;
   font-weight: 600;
@@ -325,8 +414,27 @@
   box-shadow: var(--card-shadow);
 }
 
+@keyframes chipPop {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes chipFade {
+  from {
+    opacity: 0.88;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 640px) {
-  .modeControl {
+  .modeControl,
+  .segmentedWrap {
     grid-template-columns: 1fr;
   }
 }
