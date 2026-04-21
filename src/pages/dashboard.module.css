@@ -101,6 +101,25 @@
   align-items: flex-end;
 }
 
+:global(.profile-icon-btn) {
+  border: 1px solid var(--border-soft);
+  background: linear-gradient(145deg, rgba(var(--primary-rgb), 0.14), rgba(var(--secondary-rgb), 0.12));
+  color: var(--primary);
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+
+:global(.profile-icon-btn:focus-visible) {
+  outline: none;
+  box-shadow: var(--selection-outline);
+}
+
 .datePill,
 .moodPill {
   border-radius: 999px;

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./dashboard.module.css";
 import { getDashboardSummary } from "../services/dashboardService";
+import ProfileIcon from "../components/ProfileIcon";
+import ProfileSidebar from "../components/ProfileSidebar";
 
 const moodOptions = ["Great", "Good", "Okay", "Low", "Stressed"];
 const sleepQualityLabels = ["Poor", "Average", "Good", "Excellent"];
@@ -216,12 +218,14 @@ const normalizeSummary = (data) => {
   };
 };
 
-const Dashboard = () => {
+const Dashboard = ({ theme, onThemeChange }) => {
   const navigate = useNavigate();
   const [selectedMood, setSelectedMood] = useState("Great");
   const [summary, setSummary] = useState(fallbackSummary);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => Boolean(localStorage.getItem("token")));
 
   useEffect(() => {
     let active = true;
@@ -284,6 +288,21 @@ const Dashboard = () => {
     navigate("/add-entry");
   };
 
+  const handleToggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setIsSidebarOpen(false);
+    navigate("/login");
+  };
+
   return (
     <div className={`page ${styles.pageWrapper}`}>
       <div className={styles.aurora} aria-hidden="true" />
@@ -291,16 +310,31 @@ const Dashboard = () => {
       <div className={styles.blobRight} aria-hidden="true" />
 
       <header className={`${styles.heroCard} ${styles.reveal}`}>
-        <div>
-          <p className={styles.kicker}>SheCare Dashboard</p>
-          <h1 className={styles.title}>Hello, {summary.userName}</h1>
-          <p className={styles.subtitle}>Your wellness rhythm for today.</p>
+        <div className="flex items-center justify-between w-full">
+          <div>
+            <p className={styles.kicker}>SheCare Dashboard</p>
+            <h1 className={styles.title}>Hello, {summary.userName}</h1>
+            <p className={styles.subtitle}>Your wellness rhythm for today.</p>
+          </div>
+          <div className="ml-auto">
+            <ProfileIcon isOpen={isSidebarOpen} onClick={handleToggleSidebar} />
+          </div>
         </div>
         <div className={styles.heroMeta}>
           <span className={styles.datePill}>{new Date().toLocaleDateString()}</span>
           <span className={styles.moodPill}>Mood: {selectedMood}</span>
         </div>
       </header>
+
+      <ProfileSidebar
+        isOpen={isSidebarOpen}
+        onClose={handleCloseSidebar}
+        user={{ name: summary.userName, email: "member@shecare.app" }}
+        theme={theme}
+        onThemeChange={onThemeChange}
+        isLoggedIn={isLoggedIn}
+        onLogout={handleLogout}
+      />
 
       {(loadError || isLoading) && (
         <p className={styles.infoBanner}>{isLoading ? "Loading dashboard..." : loadError}</p>

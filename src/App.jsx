@@ -14,55 +14,45 @@ import VerifyOtp from "./pages/verifyOtp";
 import AddDailyEntryPage from "./pages/addDailyEntry";
 
 const THEME_STORAGE_KEY = "shecare-theme";
+const getSystemTheme = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
-// Root app wires up the router + route mapping.
 function App() {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem(THEME_STORAGE_KEY) ?? "light";
-  });
+  const [theme, setTheme] = useState(() => localStorage.getItem(THEME_STORAGE_KEY) ?? "system");
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
-  }, [theme]);
+    const applyTheme = () => {
+      const resolvedTheme = theme === "system" ? getSystemTheme() : theme;
+      document.documentElement.setAttribute("data-theme", resolvedTheme);
+    };
 
-  const isDarkMode = theme === "dark";
+    applyTheme();
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+
+    if (theme !== "system") {
+      return undefined;
+    }
+
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = () => applyTheme();
+    media.addEventListener("change", handleChange);
+
+    return () => media.removeEventListener("change", handleChange);
+  }, [theme]);
 
   return (
     <div className="app-shell">
       <div className="app-frame">
-        <button
-          type="button"
-          className="theme-toggle"
-          onClick={() => setTheme(isDarkMode ? "light" : "dark")}
-          aria-pressed={isDarkMode}
-          aria-label={`Turn ${isDarkMode ? "off" : "on"} dark mode`}
-          title={`Turn ${isDarkMode ? "off" : "on"} dark mode`}
-        >
-          <span className="theme-toggle__icon" aria-hidden="true">
-            {isDarkMode ? "🌙" : "☀"}
-          </span>
-          <span className="theme-toggle__track">
-            <span className="theme-toggle__thumb" />
-          </span>
-          <span className="theme-toggle__label">
-            {isDarkMode ? "Dark" : "Light"}
-          </span>
-        </button>
         <BrowserRouter>
           <Routes>
-            {/* Redirect root to signup */}
             <Route path="/" element={<Navigate to="/signup" />} />
-
-            {/* Authentication + onboarding stack */}
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/verify-otp" element={<VerifyOtp />} />
             <Route path="/createPassword" element={<CreatePassword />} />
             <Route path="/profile-setup" element={<ProfileSetup />} />
 
-            {/* Core app screens */}
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard theme={theme} onThemeChange={setTheme} />} />
             <Route path="/yoga" element={<YogaPage />} />
             <Route path="/cycle" element={<Cycle />} />
             <Route path="/symptoms" element={<SymptomsPage />} />
